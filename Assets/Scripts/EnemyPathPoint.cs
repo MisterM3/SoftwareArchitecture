@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour, IGridObject
+public class EnemyPathPoint : MonoBehaviour, IGridObject
 {
-
-    [SerializeField] GameObject enemy;
-
     public GridObjectVisual gridObjectVisual { get; set; }
 
-    public GridPosition gridPosition { get; }
+    public GridPosition gridPosition { get; set; }
 
     public GameObject GetGameObject()
     {
@@ -25,11 +22,6 @@ public class Spawner : MonoBehaviour, IGridObject
     // Update is called once per frame
     void Update()
     {
-        InvokeRepeating("SpawnEnemy", 60, 1);
-    }
-
-    void SpawnEnemy()
-    {
-        Instantiate(enemy);
+        
     }
 }

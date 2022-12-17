@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEngine;
+using System;
 
+[Serializable]
 public struct GridPosition
 {
     public int x;
     public int y;
+
 
     public GridPosition(int x, int y)
     {

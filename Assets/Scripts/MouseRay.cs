@@ -8,12 +8,12 @@ public class MouseRay : MonoBehaviour
 
     [SerializeField] LayerMask groundLayer;
     [SerializeField] GridSystem system;
+    [SerializeField] GameObject gridGameObject;
     IGridObject gridObject;
 
     public void Start()
     {
-        GameObject objecct = GameObject.FindGameObjectWithTag("Player");
-        gridObject = objecct.GetComponent<IGridObject>();
+        gridObject = gridGameObject.GetComponent<IGridObject>();
     }
 
     public void Update()
@@ -23,7 +23,7 @@ public class MouseRay : MonoBehaviour
 
 
         Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, groundLayer);
-        Debug.Log(system.WorldToGridPosition(hit.point));
+       // Debug.Log(system.WorldToGridPosition(hit.point));
         Debug.DrawRay(ray.origin, ray.direction);
 
         if (Input.GetMouseButtonDown(0))
