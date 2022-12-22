@@ -39,6 +39,11 @@ public class GridSystem : MonoBehaviour
         return gridSize * new Vector3(gridPosition.x, 0, gridPosition.y);
     }
 
+    public Vector3 MiddleGridToWorldPosition(GridPosition gridPosition)
+    {
+        return gridSize * new Vector3(gridPosition.x, 0, gridPosition.y) + new Vector3(gridSize * 0.5f, 0, gridSize * 0.5f);
+    }
+
     public GridPosition WorldToGridPosition(Vector3 worldPosition)
     {
         return new GridPosition((int)(worldPosition.x / gridSize), (int)(worldPosition.z / gridSize));

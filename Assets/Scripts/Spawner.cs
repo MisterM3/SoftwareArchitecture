@@ -19,18 +19,19 @@ public class Spawner : MonoBehaviour, IGridObject
     // Start is called before the first frame update
     void Start()
     {
+     GameObject enemys = Instantiate(enemy);
     }
 
     // Update is called once per frame
     void Update()
     {
-        InvokeRepeating("SpawnEnemy", 1, 1);
+       // InvokeRepeating("SpawnEnemy", 1, 10);
         
     }
 
     void SpawnEnemy()
     {
-        Debug.Log("spawned");
+       // Debug.Log("spawned");
         Instantiate(enemy, this.transform);
     }
 }
