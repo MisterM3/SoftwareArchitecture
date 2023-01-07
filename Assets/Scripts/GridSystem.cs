@@ -12,9 +12,20 @@ public class GridSystem : MonoBehaviour
 
     IGridObject[,] gridObjects;
 
+    public static GridSystem Instance;
+
 
     public void Start()
     {
+
+        if (Instance != null)
+        {
+            Destroy(this);
+            Debug.Log("Already a GridSystem, destroying:" + name);
+            return;
+        }
+
+        Instance = this;
 
         gridObjects = new IGridObject[width,height];
         for(int x = 0; x < width; x++)
@@ -57,8 +68,10 @@ public class GridSystem : MonoBehaviour
             return;
         }
 
-        gridObjects[position.x, position.y] = gridObject;
-        Instantiate(gridObject.GetGameObject(), GridToWorldPosition(position), Quaternion.identity);
+        GameObject gridObjectPrefab = Instantiate(gridObject.GetGameObject(), GridToWorldPosition(position), Quaternion.identity);
+        IGridObject gridObjectIn = gridObjectPrefab.GetComponent<IGridObject>();
+        gridObjectIn.gridPosition = position;
+        gridObjects[position.x, position.y] = gridObjectIn;
         
     }
 

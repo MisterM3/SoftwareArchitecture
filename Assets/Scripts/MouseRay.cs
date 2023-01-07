@@ -11,9 +11,17 @@ public class MouseRay : MonoBehaviour
     [SerializeField] GameObject gridGameObject;
     IGridObject gridObject;
 
+
+
+
     public void Start()
     {
         gridObject = gridGameObject.GetComponent<IGridObject>();
+    }
+
+    public void NewGridObject(IGridObject grid)
+    {
+        gridObject = grid;
     }
 
     public void Update()

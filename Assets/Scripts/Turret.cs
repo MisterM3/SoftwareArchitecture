@@ -11,7 +11,7 @@ public class Turret : MonoBehaviour, IGridObject
 
     public GridObjectVisual gridObjectVisual { get; set; }
 
-    public GridPosition gridPosition { get; private set; }
+    public GridPosition gridPosition { get; set; }
 
     private EnemyUnit targetedEnemy = null;
 
@@ -27,7 +27,7 @@ public class Turret : MonoBehaviour, IGridObject
     // Start is called before the first frame update
     void Start()
     {
-        gridPosition = system.WorldToGridPosition(this.transform.position);
+        gridPosition = GridSystem.Instance.WorldToGridPosition(this.transform.position);
         InvokeRepeating("ShootingCycle", 0f, cooldown);
     }
 
@@ -52,27 +52,26 @@ public class Turret : MonoBehaviour, IGridObject
     //Rewrite this dogshit mess for better detection, maybe a manager (but hard if something breaks)
     void Aiming()
     {
-        GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
+        EnemyUnit[] list = GameObject.FindObjectsOfType<EnemyUnit>();
 
-        List<GameObject> enemies = new List<GameObject>(list);
+        List<EnemyUnit> enemies = new List<EnemyUnit>(list);
 
 
 
         float firstEnemy = float.MaxValue;
 
-        foreach (GameObject enemy in enemies)
+        foreach (EnemyUnit enemy in enemies)
         {
-            Debug.Log(system.MiddleGridToWorldPosition(gridPosition));
-            Debug.Log(Vector3.Distance(enemy.transform.position, system.MiddleGridToWorldPosition(gridPosition)));
+            Debug.Log(GridSystem.Instance.MiddleGridToWorldPosition(gridPosition));
+            Debug.Log(Vector3.Distance(enemy.transform.position, GridSystem.Instance.MiddleGridToWorldPosition(gridPosition)));
 
-            if (Vector3.Distance(enemy.transform.position, system.GridToWorldPosition(gridPosition)) < radius)
+            if (Vector3.Distance(enemy.transform.position, GridSystem.Instance.GridToWorldPosition(gridPosition)) < radius)
             {
-                EnemyUnit enemyUnit = enemy.GetComponent<EnemyUnit>();
 
-                if (enemyUnit.GetDistanceToEnd() < firstEnemy)
+                if (enemy.GetDistanceToEnd() < firstEnemy)
                 {
-                    firstEnemy = enemyUnit.GetDistanceToEnd();
-                    targetedEnemy = enemyUnit;
+                    firstEnemy = enemy.GetDistanceToEnd();
+                    targetedEnemy = enemy;
                 }
             }
         }
@@ -80,10 +79,10 @@ public class Turret : MonoBehaviour, IGridObject
 
     void Shoot(Vector3 shootToLocation)
     {
-        Vector3 direction = shootToLocation - system.MiddleGridToWorldPosition(gridPosition);
+        Vector3 direction = shootToLocation - GridSystem.Instance.MiddleGridToWorldPosition(gridPosition);
         direction.Normalize();
 
-        Vector3 spawnPosition = system.MiddleGridToWorldPosition(gridPosition);
+        Vector3 spawnPosition = GridSystem.Instance.MiddleGridToWorldPosition(gridPosition);
         spawnPosition += new Vector3(0, 0.5f, 0);
         GameObject bulletObject = Instantiate(bullet, spawnPosition, Quaternion.identity);
         IBullet bul = bulletObject.GetComponent<IBullet>();

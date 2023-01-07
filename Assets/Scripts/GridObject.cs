@@ -7,7 +7,7 @@ using UnityEngine;
 public interface IGridObject
 {   
      GridObjectVisual gridObjectVisual { get; }
-    GridPosition gridPosition { get; }
+    GridPosition gridPosition { get; set; }
 
     GameObject GetGameObject();
 }

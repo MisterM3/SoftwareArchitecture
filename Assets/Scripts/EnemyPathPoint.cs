@@ -17,6 +17,8 @@ public class EnemyPathPoint : MonoBehaviour, IGridObject
     void Start()
     {
         
+
+
     }
 
     // Update is called once per frame

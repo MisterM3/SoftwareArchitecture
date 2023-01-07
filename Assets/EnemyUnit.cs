@@ -10,7 +10,7 @@ public class EnemyUnit : MonoBehaviour
 
     GridSystem system;
 
-    public Queue<GridPosition> enemyPath;
+    Queue<GridPosition> enemyPath;
 
     private Vector3 walkToPoint;
 
@@ -20,10 +20,11 @@ public class EnemyUnit : MonoBehaviour
 
     
 
-    public void Start()
+    public void Awake()
     {
+        Debug.Log("Stop");
         system = GameObject.FindObjectOfType<GridSystem>();
-        enemyPath = EnemyPathManager.Instance.GetEnemyPath();
+        enemyPath = new Queue<GridPosition>(EnemyPathManager.Instance.GetEnemyPath());
         NextPathPoint();
     }
 
@@ -33,7 +34,7 @@ public class EnemyUnit : MonoBehaviour
         health -= amount;
         if (health <= 0)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
     //Rewrite for generic type <T>
@@ -45,6 +46,7 @@ public class EnemyUnit : MonoBehaviour
 
     public void Update()
     {
+        //Debug.Log(walkToPoint);
         if (walkToPoint == null) return;
        // Debug.Log(Vector3.Distance(walkToPoint, transform.position));
         if (Vector3.Distance(walkToPoint, transform.position) < 0.01f)

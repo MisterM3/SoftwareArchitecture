@@ -31,8 +31,12 @@ public class EnemyPathManager : MonoBehaviour
         PathVisual();
     }
 
-    private void PathVisual()
+
+    //ReWrite Path so the first element is the start and the last is the ending point
+    public void PathVisual()
     {
+        queuePath = new Queue<GridPosition>(enemyPath);
+
         IGridObject gridObject = pathPrefab.GetComponent<IGridObject>();
 
         foreach(GridPosition position in queuePath)
