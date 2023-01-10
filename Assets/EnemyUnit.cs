@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyUnit : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class EnemyUnit : MonoBehaviour
 
     private Vector3 walkToPoint;
 
+    public event EventHandler OnHealthChanged;
+
+    public static event EventHandler OnAnyEnemyReachEnd;
 
     //Distance to end based on amount of nodes need to walk
     private float distanceToEnd;
@@ -32,6 +36,7 @@ public class EnemyUnit : MonoBehaviour
     public void TakeDamage(int amount)
     {
         health -= amount;
+        OnHealthChanged?.Invoke(this, EventArgs.Empty);
         if (health <= 0)
         {
             Destroy(this.gameObject);
@@ -47,6 +52,7 @@ public class EnemyUnit : MonoBehaviour
     public void Update()
     {
         //Debug.Log(walkToPoint);
+        //EndPoint 
         if (walkToPoint == null) return;
        // Debug.Log(Vector3.Distance(walkToPoint, transform.position));
         if (Vector3.Distance(walkToPoint, transform.position) < 0.01f)
@@ -71,11 +77,21 @@ public class EnemyUnit : MonoBehaviour
         {
             walkToPoint = system.GridToWorldPosition(gridPointNextPoint) + new Vector3(0.5f, 0, 0.5f);
         }
-        else Debug.LogWarning("No more points in queue!");
+        else
+        {
+            OnAnyEnemyReachEnd?.Invoke(this, EventArgs.Empty);
+            Debug.LogWarning("No more points in queue!");
+            Destroy(this.gameObject);
+        }
     }
 
     public float GetDistanceToEnd()
     {
         return distanceToEnd;
     }
+
+    public float GetHealth()
+    {
+        return health;
+    }    
 }

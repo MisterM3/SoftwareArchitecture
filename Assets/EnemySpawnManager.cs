@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
 {
+    public static EnemySpawnManager Instance { get; private set; }
 
     [SerializeField] Spawner spawnPoint;
 
@@ -13,53 +14,51 @@ public class EnemySpawnManager : MonoBehaviour
 
     [SerializeField] List<EnemyWave> waves;
 
+    private EnemyWave thisWave;
 
-    [Serializable]
-    public struct EnemyWavePoints
-    {
 
-        public GameObject enemyUnit;
-        public int amount;
-        public float cooldownBetweenUnitSpawn;
-        public float timeBeforeNextWavePoint;
 
-    }
-
-    [Serializable]
-    public struct EnemyWave
-    {
-        [SerializeField] List<EnemyWavePoints> enemyWavePoint;
-
-        public Queue<EnemyWavePoints> enemyWaveQueue;
-
-        public void Start()
-        {
-            enemyWaveQueue = new Queue<EnemyWavePoints>(enemyWavePoint);
-        }
-    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (waves[0].enemyWaveQueue.Peek().amount > 0)
+        if (Instance != null)
         {
-      //      waves[0].enemyWaveQueue.First().amount -= 1;
-            SpawnNextEnemy();
-        }else
-        {
-          //  waves[1].enemyWavePoint[0].;
-                
+            Debug.LogError("Already a EnemySpawnManager in scene destroying: " + gameObject);
+            Destroy(this);
+            return;
         }
+
+        Instance = this;
+        NextWavePoint();
     }
 
-    void SpawnNextEnemy()
+
+    public EnemyWavePoints GetWavePoint()
     {
-        spawnPoint.SpawnEnemy();
+        return waves[0].enemyWaveQueue.Peek();
     }
+
+    public void NextWavePoint()
+    {
+        thisWave = waves[0];
+    }
+
+    /// <summary>
+    /// Continues the wave if there are still elements in it, otherwise returns false (and a empty enemywavepoints)
+    /// </summary>
+    /// <returns></returns>
+    public bool TryGoToNextWavePoint(out EnemyWavePoints nextWavePoint)
+    {
+          if (thisWave.enemyWaveQueue.TryDequeue(out EnemyWavePoints currentPoint))
+          {
+              nextWavePoint = currentPoint;
+              return true;
+          }
+
+          nextWavePoint = new EnemyWavePoints();
+          return false;
+      }
+        
+    
 }
