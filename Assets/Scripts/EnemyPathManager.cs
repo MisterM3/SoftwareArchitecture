@@ -6,6 +6,8 @@ public class EnemyPathManager : MonoBehaviour
 {
     public static EnemyPathManager Instance { get; private set; }
 
+
+    [SerializeField] GameObject spawnerPrefab;
     [SerializeField] GameObject pathPrefab;
     [SerializeField] GridSystem system;
     [SerializeField] List<GridPosition> enemyPath;
@@ -39,9 +41,13 @@ public class EnemyPathManager : MonoBehaviour
 
         IGridObject gridObject = pathPrefab.GetComponent<IGridObject>();
 
-        foreach(GridPosition position in queuePath)
+        IGridObject spawnerObject = spawnerPrefab.GetComponent<IGridObject>();
+
+        system.AddObjectAtGridPosition(spawnerObject, enemyPath[0]);
+
+        for(int i = 1; i < enemyPath.Count; i++)
         {
-            system.AddObjectAtGridPosition(gridObject, position);
+            system.AddObjectAtGridPosition(gridObject, enemyPath[i]);
         }
     }
 

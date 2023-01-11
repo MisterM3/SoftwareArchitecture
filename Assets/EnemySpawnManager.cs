@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 
-/*
+
 public class EnemySpawnManager : MonoBehaviour
 {
     public static EnemySpawnManager Instance { get; private set; }
@@ -14,11 +14,12 @@ public class EnemySpawnManager : MonoBehaviour
 
     Queue<GameObject> spawnQueue;
 
-    [SerializeField] List<EnemyWave> waves;
+    [SerializeField] List<EnemyWave> wavesList;
 
     private EnemyWave thisWave;
 
 
+    private IEnumerator coroutine;
 
 
     // Start is called before the first frame update
@@ -32,37 +33,34 @@ public class EnemySpawnManager : MonoBehaviour
         }
 
         Instance = this;
-        NextWavePoint();
+
+
+        spawnPoint = GameObject.FindObjectOfType<Spawner>();
+        coroutine = WaitAndSpawn(wavesList.First().timeBetweenUnits);
+        StartCoroutine(coroutine);
     }
 
 
-    public EnemyWavePoints GetWavePoint()
+
+
+    // every 2 seconds perform the print()
+    private IEnumerator WaitAndSpawn(float waitTime)
     {
-        return waves[0].enemyWaveQueue.Peek();
+        int i = 0;
+        while (wavesList.First().waveUnits.Count > i)
+        {
+
+            spawnPoint.SpawnEnemy(wavesList.First().waveUnits[i]);
+            i++;
+            yield return new WaitForSeconds(waitTime);
+        }
     }
 
-    public void NextWavePoint()
-    {
-        thisWave = waves[0];
-    }
 
-    /// <summary>
-    /// Continues the wave if there are still elements in it, otherwise returns false (and a empty enemywavepoints)
-    /// </summary>
-    /// <returns></returns>
-    public bool TryGoToNextWavePoint(out EnemyWavePoints nextWavePoint)
-    {
-          if (thisWave.enemyWaveQueue.TryDequeue(out EnemyWavePoints currentPoint))
-          {
-              nextWavePoint = currentPoint;
-              return true;
-          }
 
-          nextWavePoint = new EnemyWavePoints();
-          return false;
-      }
-        
-    
+
+
+
 }
 
-*/
+

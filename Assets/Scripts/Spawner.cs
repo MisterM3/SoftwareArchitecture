@@ -27,7 +27,7 @@ public class Spawner : MonoBehaviour, IGridObject
     {
         // gridPosition = system.WorldToGridPosition(this.transform.position);
         // GameObject enemys = Instantiate(enemy, GridSystem.Instance.GridToWorldPosition(gridPosition), Quaternion.identity);
-        InvokeRepeating("SpawnEnemy", 1, 10);
+     //   InvokeRepeating("SpawnEnemy", 1, 10);
     }
 
 
@@ -48,18 +48,9 @@ public class Spawner : MonoBehaviour, IGridObject
 
     }
 
-    public void SpawnEnemy()
+    public void SpawnEnemy(GameObject enemy)
     {
-        /*
-        if (currentWavePoint.amount <= 0) {
-            GetWavePoint();
-            timer = currentWavePoint.timeBeforeNextWavePoint;
-            return;
-        }
 
-        
-        timer = currentWavePoint.cooldownBetweenUnitSpawn;
-        */
         GameObject enemys = Instantiate(enemy, GridSystem.Instance.MiddleGridToWorldPosition(gridPosition), Quaternion.identity);
 
 

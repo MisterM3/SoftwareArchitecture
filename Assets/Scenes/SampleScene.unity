@@ -1290,7 +1290,7 @@ GameObject:
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1272320817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1303,21 +1303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a6247c1038e816429ef8170901b9c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
-  waves:
-  - enemyWavePoint:
-    - {enemyUnit: {fileID: 3187584976183986416, guid: 22fb577d457e48b438064d828c1a1642,
-        type: 3}, amount: 5, cooldownBetweenUnitSpawn: 0.1, timeBeforeNextWavePoint: 2}
-    - {enemyUnit: {fileID: 0}, amount: 0, cooldownBetweenUnitSpawn: 0, timeBeforeNextWavePoint: 0}
-    - {enemyUnit: {fileID: 0}, amount: 0, cooldownBetweenUnitSpawn: 0, timeBeforeNextWavePoint: 0}
-    - {enemyUnit: {fileID: 0}, amount: 0, cooldownBetweenUnitSpawn: 0, timeBeforeNextWavePoint: 0}
-  - enemyWavePoint:
-    - {enemyUnit: {fileID: 0}, amount: 0, cooldownBetweenUnitSpawn: 0, timeBeforeNextWavePoint: 0}
-    - {enemyUnit: {fileID: 0}, amount: 0, cooldownBetweenUnitSpawn: 0, timeBeforeNextWavePoint: 0}
-    - {enemyUnit: {fileID: 0}, amount: 0, cooldownBetweenUnitSpawn: 0, timeBeforeNextWavePoint: 0}
-    - {enemyUnit: {fileID: 0}, amount: 0, cooldownBetweenUnitSpawn: 0, timeBeforeNextWavePoint: 0}
-  thisWave:
-    enemyWavePoint: []
+  spawnPoint: {fileID: 1392584169}
+  wavesList:
+  - {fileID: 11400000, guid: 787d47b8418a48042ac3e1e362c3650e, type: 2}
 --- !u!4 &1272320818
 Transform:
   m_ObjectHideFlags: 0
@@ -1333,6 +1321,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1392584169 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4405351736337078095, guid: f25e79a45b54f2c4ca35f539d49de86a,
+    type: 3}
+  m_PrefabInstance: {fileID: 573929104}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d119515cb474245aa9e4d32fea4e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1427981188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1782,6 +1782,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03232cb5a081b444fb8430f7aa314b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnerPrefab: {fileID: 1244425399503104388, guid: f25e79a45b54f2c4ca35f539d49de86a,
+    type: 3}
   pathPrefab: {fileID: 2268844663552255120, guid: cabdc4feaa2cd1744abed36a639f3aa4,
     type: 3}
   system: {fileID: 1842924198}
