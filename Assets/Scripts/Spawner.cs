@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour, IGridObject
         return this.gameObject;
     }
 
-    private EnemyWavePoints currentWavePoint;
+  //  private EnemyWavePoints currentWavePoint;
 
     // Start is called before the first frame update
     void Start()
@@ -71,11 +71,11 @@ public class Spawner : MonoBehaviour, IGridObject
         // EnemySpawnManager thi = EnemySpawnManager.Instance;
 
       //  Debug.Log(EnemySpawnManager.Instance);
-       if (EnemySpawnManager.Instance.TryGoToNextWavePoint(out EnemyWavePoints nextWavePoints))
-        {
-            currentWavePoint = nextWavePoints;
-            enemy = currentWavePoint.enemyUnit;
-            Debug.Log(currentWavePoint.cooldownBetweenUnitSpawn);
-        }
+  //     if (EnemySpawnManager.Instance.TryGoToNextWavePoint(out EnemyWavePoints nextWavePoints))
+  //      {
+   //         currentWavePoint = nextWavePoints;
+   //         enemy = currentWavePoint.enemyUnit;
+   //         Debug.Log(currentWavePoint.cooldownBetweenUnitSpawn);
+    //    }
     }
 }

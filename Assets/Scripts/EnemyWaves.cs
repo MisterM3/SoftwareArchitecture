@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
+/*
 [Serializable]
 public struct EnemyWavePoints
 {
@@ -25,3 +27,4 @@ public struct EnemyWave
         enemyWaveQueue = new Queue<EnemyWavePoints>(enemyWavePoint);
     }
 }
+*/

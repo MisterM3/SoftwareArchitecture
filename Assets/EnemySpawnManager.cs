@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+/*
 public class EnemySpawnManager : MonoBehaviour
 {
     public static EnemySpawnManager Instance { get; private set; }
@@ -62,3 +64,5 @@ public class EnemySpawnManager : MonoBehaviour
         
     
 }
+
+*/
