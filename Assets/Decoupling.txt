@@ -1,0 +1,7 @@
+#KNOWN THINGS NEED DECOUPLING
+
+1. EnemySpawnManager and GameStateManager are coupled with events
+2. ManageTimer and GameStateManager are coupled with events
+3. A lot of managers
+
+4. GameStateManger is taking care of money and gamestate (split up)

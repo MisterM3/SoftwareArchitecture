@@ -10,6 +10,8 @@ public class MouseRay : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] GridSystem system;
     [SerializeField] GameObject gridGameObject;
+
+    [SerializeField] GameObject UpgradeUI;
     IGridObject gridObject;
 
     public int costTower = 0;
@@ -43,7 +45,11 @@ public class MouseRay : MonoBehaviour
             GridPosition position = system.WorldToGridPosition(hit.point);
 
             //A tower has been pressed so a towwer will be build
-            if (gridObject != null) BuildBuilding(position);
+            if (gridObject != null)
+            {
+                BuildBuilding(position);
+                gridObject = null;
+            }
 
             //Check if there is a tower on the grid, if there is open the upgrade menu
             else UpgradeMenu(position);
@@ -72,6 +78,19 @@ public class MouseRay : MonoBehaviour
 
     void UpgradeMenu(GridPosition position)
     {
+        IGridObject building = system.GetBuildingAtGridPosition(position);
+
+        if (building == null)
+        {
+            UpgradeUI.SetActive(false);
+            return;
+        }
+
+        UpgradeUI.SetActive(true);
+        UpgradeButton button = UpgradeUI.GetComponent<UpgradeButton>();
+
+        //Change so certain can be upgraded
+        button.ResetButtons((Turret)building);
 
     }
 }

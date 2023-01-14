@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class Turret : MonoBehaviour, IGridObject, IUpgradable
 
 
     private EnemyUnit targetedEnemy = null;
+
+    public event EventHandler OnTurretUpgrade;
 
 
     [SerializeField] private TurretRangeStragetySO turretRangeStragety;
@@ -109,6 +112,11 @@ public class Turret : MonoBehaviour, IGridObject, IUpgradable
     public void ChangeShootSpeedStragety(TurretShootSpeedStrategySO shootSpeedSO)
     {
         shootingSpeedStragety = shootSpeedSO;
+    }
+
+    public void Upgrade()
+    {
+        OnTurretUpgrade?.Invoke(this, EventArgs.Empty);
     }
 
 

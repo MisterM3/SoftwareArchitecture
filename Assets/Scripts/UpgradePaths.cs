@@ -15,6 +15,12 @@ public class UpgradePaths : MonoBehaviour
     void Start()
     {
         turret = gameObject.GetComponent<Turret>();
+        turret.OnTurretUpgrade += Turret_OnTurretUpgrade;
+    }
+
+    private void Turret_OnTurretUpgrade(object sender, System.EventArgs e)
+    {
+        Upgrade();
     }
 
     // Update is called once per frame
