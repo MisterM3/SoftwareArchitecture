@@ -57,22 +57,36 @@ public class GridSystem : MonoBehaviour
 
     public GridPosition WorldToGridPosition(Vector3 worldPosition)
     {
+
+       // if (worldPosition.x < 0 || worldPosition.y < 0) return new GridPosition(-1,-1);
+        Debug.Log((int)(worldPosition.x / gridSize));
         return new GridPosition((int)(worldPosition.x / gridSize), (int)(worldPosition.z / gridSize));
     }
 
     public void AddObjectAtGridPosition(IGridObject gridObject, GridPosition position)
     {
-        if (gridObjects[position.x,position.y] != null)
-        {
-            Debug.LogError("Already a building on this position!");
-            return;
-        }
-
         GameObject gridObjectPrefab = Instantiate(gridObject.GetGameObject(), GridToWorldPosition(position), Quaternion.identity);
         IGridObject gridObjectIn = gridObjectPrefab.GetComponent<IGridObject>();
         gridObjectIn.gridPosition = position;
         gridObjects[position.x, position.y] = gridObjectIn;
         
+    }
+
+    public bool TryAddObjectAtGridPosition(IGridObject gridObject, GridPosition position)
+    {
+        if (gridObjects[position.x, position.y] != null)
+        {
+            Debug.LogError("Already a building on this position!");
+            return false;
+        }
+
+        AddObjectAtGridPosition(gridObject, position);
+        return true;
+    }
+
+    public IGridObject GetBuildingAtGridPosition(GridPosition position) 
+    {
+        return gridObjects[position.x, position.y];
     }
 
 

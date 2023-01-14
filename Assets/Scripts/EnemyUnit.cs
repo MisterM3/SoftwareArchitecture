@@ -19,6 +19,8 @@ public class EnemyUnit : MonoBehaviour
 
     public static event EventHandler OnAnyEnemyReachEnd;
 
+    public static event EventHandler<int> OnAnyEnemyKilled;
+
     //Distance to end based on amount of nodes need to walk
     private float distanceToEnd;
 
@@ -39,6 +41,7 @@ public class EnemyUnit : MonoBehaviour
         OnHealthChanged?.Invoke(this, EventArgs.Empty);
         if (health <= 0)
         {
+            OnAnyEnemyKilled?.Invoke(this, money);
             Destroy(this.gameObject);
         }
     }

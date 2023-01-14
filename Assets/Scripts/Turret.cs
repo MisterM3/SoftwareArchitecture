@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour, IGridObject
+public class Turret : MonoBehaviour, IGridObject, IUpgradable
 {
 
-    [SerializeField] GridSystem system;
+  //  [SerializeField] GridSystem system;
 
     [SerializeField] GameObject bullet;
 
@@ -13,11 +13,14 @@ public class Turret : MonoBehaviour, IGridObject
 
     public GridPosition gridPosition { get; set; }
 
+
+
     private EnemyUnit targetedEnemy = null;
 
-    private float radius = 4;
 
-    private float cooldown = 1f;
+    [SerializeField] private TurretRangeStragetySO turretRangeStragety;
+
+    [SerializeField] private TurretShootSpeedStrategySO shootingSpeedStragety;
 
     public GameObject GetGameObject()
     {
@@ -28,7 +31,7 @@ public class Turret : MonoBehaviour, IGridObject
     void Start()
     {
         gridPosition = GridSystem.Instance.WorldToGridPosition(this.transform.position);
-        InvokeRepeating("ShootingCycle", 0f, cooldown);
+        StartCoroutine("ShootingCycle");
     }
 
     // Update is called once per frame
@@ -39,14 +42,25 @@ public class Turret : MonoBehaviour, IGridObject
 
 
 
-    void ShootingCycle()
+
+
+
+    IEnumerator ShootingCycle()
     {
-        Aiming();
+        while (true)
+        {
+            Aiming();
 
-        if (targetedEnemy == null) return;
+            if (targetedEnemy != null)
+            {
+                Shoot(targetedEnemy.transform.position);
+                Debug.Log("Shooting");
+                yield return new WaitForSeconds(shootingSpeedStragety.shootSpeed);
+            }
+            else yield return new WaitForSeconds(0.1f);
 
-        Shoot(targetedEnemy.transform.position);
-        Debug.Log("Shooting");
+
+        }
     }
 
     //Rewrite this dogshit mess for better detection, maybe a manager (but hard if something breaks)
@@ -65,7 +79,7 @@ public class Turret : MonoBehaviour, IGridObject
             Debug.Log(GridSystem.Instance.MiddleGridToWorldPosition(gridPosition));
             Debug.Log(Vector3.Distance(enemy.transform.position, GridSystem.Instance.MiddleGridToWorldPosition(gridPosition)));
 
-            if (Vector3.Distance(enemy.transform.position, GridSystem.Instance.GridToWorldPosition(gridPosition)) < radius)
+            if (Vector3.Distance(enemy.transform.position, GridSystem.Instance.GridToWorldPosition(gridPosition)) <= turretRangeStragety.turretRange)
             {
 
                 if (enemy.GetDistanceToEnd() < firstEnemy)
@@ -89,6 +103,12 @@ public class Turret : MonoBehaviour, IGridObject
         bul.direction = direction;
 
 
+    }
+
+
+    public void ChangeShootSpeedStragety(TurretShootSpeedStrategySO shootSpeedSO)
+    {
+        shootingSpeedStragety = shootSpeedSO;
     }
 
 

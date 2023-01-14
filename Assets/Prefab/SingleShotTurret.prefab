@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4987584791670172718}
   - component: {fileID: 4987584791670172719}
+  - component: {fileID: -8327539343549813392}
   m_Layer: 0
   m_Name: SingleShotTurret
   m_TagString: Untagged
@@ -45,8 +46,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88eb035db9248f448b96077aee320e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  system: {fileID: 0}
   bullet: {fileID: 2548364538930391097, guid: 20fd338b7ca6da1448b6a8451eae6848, type: 3}
+  turretRangeStragety: {fileID: 11400000, guid: 9355c748afaf28842a73725d30919269,
+    type: 2}
+  shootingSpeedStragety: {fileID: 11400000, guid: 7c1c0d6043799494db691af17b04c9a4,
+    type: 2}
+--- !u!114 &-8327539343549813392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987584791670172716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e44c76884ae4c4fbfacc6fc6c69fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeIndex: 0
+  ShootingStragety:
+  - {fileID: 11400000, guid: 7c1c0d6043799494db691af17b04c9a4, type: 2}
+  - {fileID: 11400000, guid: 4cd23b354f88b3c4c82e4bab1d5e299c, type: 2}
+  - {fileID: 11400000, guid: 5e36736d1bab1354e916925e739278f6, type: 2}
+  - {fileID: 11400000, guid: e281035fd74afae428a72c91fea4d236, type: 2}
 --- !u!1 &4987584791843545806
 GameObject:
   m_ObjectHideFlags: 0

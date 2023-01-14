@@ -19,6 +19,10 @@ public class EnemySpawnManager : MonoBehaviour
     private EnemyWave thisWave;
 
 
+    //When the wave is fully on screen
+    public event EventHandler OnWaveCompleted;
+
+
     private IEnumerator coroutine;
 
 
@@ -54,6 +58,8 @@ public class EnemySpawnManager : MonoBehaviour
             i++;
             yield return new WaitForSeconds(waitTime);
         }
+
+        OnWaveCompleted?.Invoke(this, EventArgs.Empty);
     }
 
 

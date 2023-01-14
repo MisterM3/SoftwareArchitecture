@@ -12,9 +12,13 @@ public class ManageUI : MonoBehaviour
     void Start()
     {
         GameStateManager.Instance.OnHealthChange += GameStateManager_OnHealthChange;
+        GameStateManager.Instance.OnMoneyChange += GameStateManager_OnMoneyChange;
     }
 
-
+    private void GameStateManager_OnMoneyChange(object sender, int e)
+    {
+        moneyText.text = "Money: " + e.ToString();
+    }
 
     private void GameStateManager_OnHealthChange(object sender, int e)
     {

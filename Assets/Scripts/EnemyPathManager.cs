@@ -43,11 +43,11 @@ public class EnemyPathManager : MonoBehaviour
 
         IGridObject spawnerObject = spawnerPrefab.GetComponent<IGridObject>();
 
-        system.AddObjectAtGridPosition(spawnerObject, enemyPath[0]);
+        system.TryAddObjectAtGridPosition(spawnerObject, enemyPath[0]);
 
         for(int i = 1; i < enemyPath.Count; i++)
         {
-            system.AddObjectAtGridPosition(gridObject, enemyPath[i]);
+            system.TryAddObjectAtGridPosition(gridObject, enemyPath[i]);
         }
     }
 
