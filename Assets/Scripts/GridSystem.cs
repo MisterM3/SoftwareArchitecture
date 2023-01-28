@@ -12,6 +12,8 @@ public class GridSystem : MonoBehaviour
 
     IGridObject[,] gridObjects;
 
+    GridObjectVisual[,] gridVisulaObjectsList;
+
     public static GridSystem Instance;
 
 
@@ -28,6 +30,7 @@ public class GridSystem : MonoBehaviour
         Instance = this;
 
         gridObjects = new IGridObject[width,height];
+        gridVisulaObjectsList= new GridObjectVisual[width,height];
         for(int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -40,6 +43,8 @@ public class GridSystem : MonoBehaviour
                 //GridObjectVisual gridVisual = 
                   GameObject gride =  Instantiate(prefabGridObject, position, Quaternion.identity);
                 gride.GetComponent<GridObjectVisual>().SetText(gridPosition.ToString());
+                    gride.GetComponent<GridObjectVisual>().GridPosition = gridPosition;
+                gridVisulaObjectsList[x, y] = gride.GetComponent<GridObjectVisual>();
                 //gridVisual.SetText(gridPosition.ToString()); 
             }
         }
@@ -87,6 +92,53 @@ public class GridSystem : MonoBehaviour
     public IGridObject GetBuildingAtGridPosition(GridPosition position) 
     {
         return gridObjects[position.x, position.y];
+    }
+
+    public List<GridPosition> GetPlaceablePositions()
+    {
+        List<GridPosition> positions = new List<GridPosition>();
+
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (gridObjects[x, y] != null) continue;
+
+                GridPosition pos = new GridPosition(x, y);
+                positions.Add(pos);
+            }
+        }
+        return positions;
+    }
+
+
+    public void EnableGridVisuals(List<GridPosition> positions)
+    {
+        foreach(GridPosition position in positions)
+        {
+            gridVisulaObjectsList[position.x, position.y].gameObject.SetActive(true);
+        }
+    }
+
+    public void EnabePlaceableGridVisuals()
+    {
+        EnableGridVisuals(GetPlaceablePositions());
+    }
+
+    public void DisableAllGridVisuals()
+    {
+        foreach(GridObjectVisual visual in gridVisulaObjectsList)
+        {
+            visual.gameObject.SetActive(false);
+        }
+    }
+
+
+    //Does not destroy it yet only sets list position to null!!
+    public void DesroyGridObjectAtLocation(GridPosition position)
+    {
+        gridObjects[position.x, position.y] = null;
     }
 
 

@@ -44,10 +44,11 @@ public class MouseRay : MonoBehaviour
         {
             GridPosition position = system.WorldToGridPosition(hit.point);
 
-            //A tower has been pressed so a towwer will be build
+            //A tower has been pressed so a tower will be build
             if (gridObject != null)
             {
                 BuildBuilding(position);
+                system.DisableAllGridVisuals();
                 gridObject = null;
             }
 

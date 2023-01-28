@@ -119,5 +119,11 @@ public class Turret : MonoBehaviour, IGridObject, IUpgradable
         OnTurretUpgrade?.Invoke(this, EventArgs.Empty);
     }
 
+    public void DestroyTurret()
+    {
+        GridSystem.Instance.DesroyGridObjectAtLocation(gridPosition);
+        Destroy(gameObject);
+    }
+
 
 }

@@ -31,4 +31,9 @@ public class BuyTower : MonoBehaviour
         mouse.NewGridObject(GridObject);
         mouse.costTower = cost;
     }
+
+    public int getCost()
+    {
+        return cost;
+    }
 }
