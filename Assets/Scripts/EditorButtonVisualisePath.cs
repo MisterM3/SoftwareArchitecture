@@ -10,7 +10,7 @@ public class EditorButtonVisualisePath : MonoBehaviour
     static EnemyPathManager pathManager;
 
 
-    [MenuItem("ResearchTree/Update")]
+  //  [MenuItem("ResearchTree/Update")]
     static void UpdateVisuals()
     {
 

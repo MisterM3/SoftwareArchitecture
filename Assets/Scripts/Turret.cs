@@ -67,6 +67,8 @@ public class Turret : MonoBehaviour, IGridObject, IUpgradable
     }
 
     //Rewrite this dogshit mess for better detection, maybe a manager (but hard if something breaks)
+
+    /*
     void Aiming()
     {
         EnemyUnit[] list = GameObject.FindObjectsOfType<EnemyUnit>();
@@ -92,6 +94,30 @@ public class Turret : MonoBehaviour, IGridObject, IUpgradable
                 }
             }
         }
+    }
+    */
+    void Aiming()
+    {
+        float firstEnemy = float.MaxValue;
+        targetedEnemy = null;
+
+        Vector3 center = GridSystem.Instance.MiddleGridToWorldPosition(gridPosition);
+
+        int enemyLayer = LayerMask.NameToLayer("Enemies");
+        Collider[] enemiesColliders = Physics.OverlapSphere(center, turretRangeStragety.turretRange, enemyLayer);
+
+
+        foreach (Collider enemyCollider in enemiesColliders)
+        {
+
+            EnemyUnit enemy = enemyCollider.GetComponentInParent<EnemyUnit>();
+            if (enemy.GetDistanceToEnd() < firstEnemy)
+            {
+                firstEnemy = enemy.GetDistanceToEnd();
+                targetedEnemy = enemy;
+            }
+        }
+
     }
 
     void Shoot(Vector3 shootToLocation)

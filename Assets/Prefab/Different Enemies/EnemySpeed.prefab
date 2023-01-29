@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 762948280688372019}
   - component: {fileID: 5456588997434891843}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 3187584975327855002}
   - component: {fileID: 3187584975327855003}
   - component: {fileID: 480633513136080904}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3187584976183986419}
   - component: {fileID: 1401122897765217507}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EnemySpeed
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 7082878280233940045}
   - component: {fileID: 6403051404660404254}
   - component: {fileID: 6677137995854576741}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 5793885409935044806}
   - component: {fileID: 1734093902632993345}
   - component: {fileID: 1244320382874570021}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
