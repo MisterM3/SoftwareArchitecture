@@ -48,6 +48,8 @@ public class GridSystem : MonoBehaviour
                 //gridVisual.SetText(gridPosition.ToString()); 
             }
         }
+
+        DisableAllGridVisuals();
     }
 
     public Vector3 GridToWorldPosition(GridPosition gridPosition)
@@ -64,7 +66,6 @@ public class GridSystem : MonoBehaviour
     {
 
        // if (worldPosition.x < 0 || worldPosition.y < 0) return new GridPosition(-1,-1);
-        Debug.Log((int)(worldPosition.x / gridSize));
         return new GridPosition((int)(worldPosition.x / gridSize), (int)(worldPosition.z / gridSize));
     }
 

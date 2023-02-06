@@ -12,6 +12,8 @@ public class ManageUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI waveText;
 
     [SerializeField] GameObject gameOverScreen;
+    [SerializeField] GameObject gameWonScreen;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,17 +23,24 @@ public class ManageUI : MonoBehaviour
         GameStateManager.Instance.OnDuringWaveStart += Instance_OnDuringWaveStart;
 
         GameStateManager.Instance.OnGameOverStart += Instance_OnGameOverStart;
+
+        GameStateManager.Instance.OnWonStart += Instance_OnWonStart;
     }
 
     private void Instance_OnDuringWaveStart(object sender, int e)
     {
         //e++ because index starts at zero
-        waveText.text = "Wave: " + e++.ToString();
+        waveText.text = "Wave: " + (e+1).ToString();
     }
 
     private void Instance_OnGameOverStart(object sender, System.EventArgs e)
     {
         gameOverScreen.SetActive(true);
+    }
+
+    private void Instance_OnWonStart(object sender, System.EventArgs e)
+    {
+        gameWonScreen.SetActive(true);
     }
 
     private void GameStateManager_OnMoneyChange(object sender, int e)

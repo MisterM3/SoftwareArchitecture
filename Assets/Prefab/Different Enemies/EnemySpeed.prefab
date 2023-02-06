@@ -172,6 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3187584976183986419}
   - component: {fileID: 1401122897765217507}
+  - component: {fileID: -7278327094175890569}
   m_Layer: 3
   m_Name: EnemySpeed
   m_TagString: Enemy
@@ -209,8 +210,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
-  speed: 2
   money: 15
+--- !u!114 &-7278327094175890569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187584976183986416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 009e3e362839b4849bfcac83e4a7d4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  walkingStragety: {fileID: 11400000, guid: 53f31ca0f2d321b4ca88431c44704865, type: 2}
 --- !u!1 &3846254501917714096
 GameObject:
   m_ObjectHideFlags: 0

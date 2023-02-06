@@ -87,9 +87,11 @@ public class MouseRay : MonoBehaviour
             return;
         }
 
+
+        if (!(building is Turret)) return;
+
         UpgradeUI.SetActive(true);
         UpgradeButton button = UpgradeUI.GetComponent<UpgradeButton>();
-
         //Change so certain can be upgraded
         button.ResetButtons((Turret)building);
 

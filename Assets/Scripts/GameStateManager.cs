@@ -10,7 +10,9 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] int playerHealh = 100;
     [SerializeField] int playerMoney = 500;
 
-    [SerializeField] int waveNumber = -1;
+    [SerializeField] int waveIndex = -1;
+
+    [SerializeField] int maxWaveIndex = 4;
 
 
     //Maybe change
@@ -57,6 +59,9 @@ public class GameStateManager : MonoBehaviour
 
     private void ManageTimer_OnTimerComplete(object sender, EventArgs e)
     {
+
+        
+
         if (currentstate != GameState.GameOver)
         StartWave();
     }
@@ -74,12 +79,21 @@ public class GameStateManager : MonoBehaviour
     }
 
     public void EndWave() {
+
+        if (waveIndex >= maxWaveIndex)
+        {
+            currentstate = GameState.Won;
+            SendEvents();
+            return;
+        }
+
+
         currentstate = GameState.BeforeWave;
         SendEvents();
     }
 
     public void StartWave() {
-        waveNumber++;
+        waveIndex++;
         currentstate = GameState.DuringWave;
         SendEvents();
     }
@@ -102,7 +116,7 @@ public class GameStateManager : MonoBehaviour
                 break;
             case GameState.DuringWave:
                 Debug.LogWarning("sendEvent");
-                OnDuringWaveStart?.Invoke(this, waveNumber);
+                OnDuringWaveStart?.Invoke(this, waveIndex);
                 break;
             case GameState.AfterWaveSpawn:
                 OnAfterWaveStart?.Invoke(this, EventArgs.Empty);
@@ -141,10 +155,14 @@ public class GameStateManager : MonoBehaviour
    private void PlaterHealthDown()
     {
         playerHealh -= 1;
+        if (playerHealh <= 0)
+        {
+            GameOver();
+            playerHealh = 0;
+        }
 
         OnHealthChange?.Invoke(this, playerHealh);
 
-        if (playerHealh <= 0) GameOver();
     }
 
     public int GetMoney()

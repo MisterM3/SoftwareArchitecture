@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExlosiveBullet : MonoBehaviour, IBullet
+public class ExlosiveBullet : MonoBehaviour
 {
     public float speed = 1f;
     public Vector3 direction { get; set; }
