@@ -5,26 +5,15 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour, IGridObject, IUpgradable
 {
-
-
-
     //TurretAction is what happens when colliders are inside the turret range
-    [SerializeField] ITurretAction turretAction;
+    [SerializeField] ITurretAction _turretAction;
 
     [SerializeField] ITurretRange _turretRange;
 
-    [SerializeField] UpgradePaths upgrades;
-
-
-    public GridObjectVisual gridObjectVisual { get; set; }
+    [SerializeField] UpgradePaths _upgrades;
 
     public GridPosition gridPosition { get; set; }
 
-
-
-    private EnemyUnit targetedEnemy = null;
-
-    public event EventHandler OnTurretUpgrade;
 
     [SerializeField] private TurretShootSpeedStrategySO actionSpeedStragety;
 
@@ -36,17 +25,18 @@ public class Turret : MonoBehaviour, IGridObject, IUpgradable
     // Start is called before the first frame update
     void Start()
     {
+        //If it does not have an action throw an error
+        if (!TryGetComponent<ITurretAction>(out ITurretAction action)) Debug.LogError("TURRET HAS NO ACTION");
+        _turretAction = action;
 
-        //Maybe change to tryget and do a nullcheck
-        turretAction = GetComponent<ITurretAction>();
+        //If it does not have an range throw an error
+        if (!TryGetComponent<ITurretRange>(out ITurretRange range)) Debug.LogError("TURRET HAS NO RANGE");
+        _turretRange = range;
 
-        _turretRange = GetComponent<ITurretRange>();
-
-        if (turretAction == null) Debug.LogError("TURRET HAS NO ACTION");
-
+        if (_turretAction == null) Debug.LogError("TURRET HAS NO ACTION");
 
         gridPosition = GridSystem.Instance.WorldToGridPosition(this.transform.position);
-        upgrades = GetComponent<UpgradePaths>();
+        _upgrades = GetComponent<UpgradePaths>();
 
         StartCoroutine("ActionCycle");
     }
@@ -57,56 +47,22 @@ public class Turret : MonoBehaviour, IGridObject, IUpgradable
         while (true)
         {
             Collider[] coll = _turretRange.GetCollidersInRadius();
-            if (coll == null) yield return new WaitForSeconds(0.1f);
+            if (coll == null) yield return new WaitForSeconds(0.05f);
             else
             {
-                turretAction.TurretAction(coll);
-                yield return new WaitForSeconds(actionSpeedStragety.shootSpeed);
+                _turretAction.TurretAction(coll);
+                yield return new WaitForSeconds(actionSpeedStragety.actionSpeed);
             }
         }
     }
-
-
-    public void UpgradeFirst()
+    public UpgradePaths GetTurretUpgrade()
     {
-        upgrades.UpgradeFirst();
+        return _upgrades;
     }
-
-    public void UpgradeSecond()
-    {
-        upgrades.UpgradeSecond();
-    }
-
-
-    public void ChangeActionSpeedStragety(TurretShootSpeedStrategySO actionSpeedSO)
-    {
-        actionSpeedStragety = actionSpeedSO;
-    }
-
-
-    public string GetFirstUpgradeNameAndCost()
-    {
-       return upgrades.GetFirstUpgradeNameAndCost();
-    }
-
-    public string GetSecondUpgradeNameAndCost()
-    {
-        return upgrades.GetSecondUpgradeNameAndCost();
-    }
-    public int GetFirstCost()
-    {
-        return upgrades.GetFirstUpgradeCost();
-    }
-
-    public int GetSecondCost()
-    {
-        return upgrades.GetSecondUpgradeCost();
-    }
-
 
     public void DestroyTurret()
     {
-        GridSystem.Instance.DesroyGridObjectAtLocation(gridPosition);
+        GridSystem.Instance.RemoveGridObjectAtLocation(gridPosition);
         DestroyImmediate(gameObject);
     }
 
@@ -118,8 +74,5 @@ public class Turret : MonoBehaviour, IGridObject, IUpgradable
             actionSpeedStragety = (TurretShootSpeedStrategySO)upgrade;
         }
     }
-
-
-
 
 }

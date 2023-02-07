@@ -4,11 +4,9 @@ using UnityEngine;
 
 public interface IEnemyMovement
 {
-   // EnemyWalkingStragetySO walkingStragety { get; set; }
     void ChangeStragety(EnemyWalkingStragetySO stragety);
 
     void UpdateMovement();
 
     float GetDistanceToEnd();
-
 }

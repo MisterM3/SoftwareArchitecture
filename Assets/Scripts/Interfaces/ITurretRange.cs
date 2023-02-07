@@ -7,6 +7,5 @@ public interface ITurretRange
 {
     Collider[] GetCollidersInRadius();
     float getMaxRange();
-
     EventHandler<float> onRangeChanged { get; set; }
 }

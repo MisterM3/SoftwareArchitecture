@@ -27,7 +27,7 @@ public class UpgradeButton : MonoBehaviour
 
         textButtonTwo = buttonSecondUpgrade.GetComponentInChildren<TextMeshProUGUI>();
 
-        GameStateManager.Instance.OnMoneyChange += GameStateManager_OnMoneyChange;
+        MoneyManager.Instance.OnMoneyChange += GameStateManager_OnMoneyChange;
     }
 
     private void GameStateManager_OnMoneyChange(object sender, int money)
@@ -40,36 +40,53 @@ public class UpgradeButton : MonoBehaviour
     {
         turret = pTurret;
 
-        Debug.LogWarning(turret);
+        UpgradePaths turretUpgrade = turret.GetTurretUpgrade();
+
+        ResetFirstUpgradeButton(turretUpgrade);
+        ResetSecondUpgradeButton(turretUpgrade);
+        ResetDestroyButton(turret);
+
+        CheckMoneyUpgrades(MoneyManager.Instance.GetMoney());
+    }
+
+
+    void ResetFirstUpgradeButton(UpgradePaths turretUpgrade)
+    {
         buttonFirstUpgrade.onClick.RemoveAllListeners();
-        buttonFirstUpgrade.onClick.AddListener(turret.UpgradeFirst);
-
-        buttonSecondUpgrade.onClick.RemoveAllListeners();
-        buttonSecondUpgrade.onClick.AddListener(turret.UpgradeSecond);
-
-        destroyButton.onClick.RemoveAllListeners();
-        destroyButton.onClick.AddListener(turret.DestroyTurret);
-        destroyButton.onClick.AddListener(DestroyButton);
+        buttonFirstUpgrade.onClick.AddListener(turretUpgrade.UpgradeFirst);
 
         buttonFirstUpgrade.onClick.AddListener(ClickedButton);
 
+        textButtonOne.text = turretUpgrade.GetFirstUpgradeNameAndCost();
+    }
+
+    void ResetSecondUpgradeButton(UpgradePaths turretUpgrade)
+    {
+        buttonSecondUpgrade.onClick.RemoveAllListeners();
+        buttonSecondUpgrade.onClick.AddListener(turretUpgrade.UpgradeSecond);
+
         buttonSecondUpgrade.onClick.AddListener(ClickedButton);
 
-        textButtonOne.text = turret.GetFirstUpgradeNameAndCost();
+        textButtonTwo.text = turretUpgrade.GetSecondUpgradeNameAndCost();
+    }
 
-        textButtonTwo.text = turret.GetSecondUpgradeNameAndCost();
-
-        CheckMoneyUpgrades(GameStateManager.Instance.GetMoney());
+    void ResetDestroyButton(Turret turret)
+    {
+        destroyButton.onClick.RemoveAllListeners();
+        destroyButton.onClick.AddListener(turret.DestroyTurret);
+        destroyButton.onClick.AddListener(DestroyButton);
     }
 
     void CheckMoneyUpgrades(int money)
     {
         if (turret == null) return;
 
-        if (turret.GetFirstCost() <= money) buttonFirstUpgrade.interactable = true;
+        UpgradePaths turretUpgrade = turret.GetTurretUpgrade();
+
+        if (turretUpgrade.GetFirstUpgradeCost() <= money) buttonFirstUpgrade.interactable = true;
         else buttonFirstUpgrade.interactable = false;
 
-        if (turret.GetSecondCost() <= money) buttonSecondUpgrade.interactable = true;
+        if (turretUpgrade.GetSecondUpgradeCost() <= money) buttonSecondUpgrade.interactable = true;
         else buttonSecondUpgrade.interactable = false;
 
     }

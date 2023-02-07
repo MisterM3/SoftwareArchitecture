@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba0f71672a7f7d242b15749924cc50e4, type: 3}
-  m_Name: Long
+  m_Name: MediumRange
   m_EditorClassIdentifier: 
   nameUpgrade: Uprade Range
-  costUpgrade: 300
-  turretRange: 3.5
+  costUpgrade: 150
+  turretRange: 3

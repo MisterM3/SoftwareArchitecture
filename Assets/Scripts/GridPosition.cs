@@ -7,19 +7,18 @@ using System;
 public struct GridPosition
 {
     public int x;
-    public int y;
+    public int z;
 
 
-    public GridPosition(int x, int y)
+    public GridPosition(int x, int z)
     {
         this.x = x;
-        this.y = y;
+        this.z = z;
     }
 
     public override string ToString()
     {
-        return ("(X: " + x + ", Y: " + y + ")");
+        return ("(X: " + x + ", Z: " + z + ")");
     }
 
-    //public static GridPosition operator *(int )
 }

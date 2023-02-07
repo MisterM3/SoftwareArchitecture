@@ -8,7 +8,6 @@ public class GameStateManager : MonoBehaviour
 
     public static GameStateManager Instance { get; private set; }
     [SerializeField] int playerHealh = 100;
-    [SerializeField] int playerMoney = 500;
 
     [SerializeField] int waveIndex = -1;
 
@@ -17,7 +16,6 @@ public class GameStateManager : MonoBehaviour
 
     //Maybe change
     public event EventHandler<int> OnHealthChange;
-    public event EventHandler<int> OnMoneyChange;
 
 
 
@@ -48,7 +46,6 @@ public class GameStateManager : MonoBehaviour
     {
 
         EnemyUnit.OnAnyEnemyReachEnd += EnemyUnit_OnAnyEnemyReachEnd;
-        EnemyUnit.OnAnyEnemyKilled += EnemyUnit_OnAnyEnemyKilled;
 
         EnemySpawnManager.Instance.OnWaveCompleted += Instance_OnWaveCompleted;
         ManageTimer.Instance.OnTimerComplete += ManageTimer_OnTimerComplete;
@@ -59,9 +56,6 @@ public class GameStateManager : MonoBehaviour
 
     private void ManageTimer_OnTimerComplete(object sender, EventArgs e)
     {
-
-        
-
         if (currentstate != GameState.GameOver)
         StartWave();
     }
@@ -112,7 +106,6 @@ public class GameStateManager : MonoBehaviour
         switch (currentstate) {
             case GameState.BeforeWave:
                 OnBeforeWaveStart?.Invoke(this, EventArgs.Empty);
-                Debug.LogWarning("te");
                 break;
             case GameState.DuringWave:
                 Debug.LogWarning("sendEvent");
@@ -130,29 +123,12 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-
-
-
-
-
-
-
-
-
-    //MOINEY WISE PUT IN DIFFERENT MANAGER
-
-    private void EnemyUnit_OnAnyEnemyKilled(object sender, int e)
-    {
-        playerMoney += e;
-        OnMoneyChange?.Invoke(this, playerMoney);
-    }
-
     private void EnemyUnit_OnAnyEnemyReachEnd(object sender, System.EventArgs e)
     {
         PlaterHealthDown();
     }
 
-   private void PlaterHealthDown()
+    private void PlaterHealthDown()
     {
         playerHealh -= 1;
         if (playerHealh <= 0)
@@ -163,33 +139,5 @@ public class GameStateManager : MonoBehaviour
 
         OnHealthChange?.Invoke(this, playerHealh);
 
-    }
-
-    public int GetMoney()
-    {
-        return playerMoney;
-    }
-
-    public bool HasEnoughMoney(int amount)
-    {
-        return playerMoney >= amount;
-    }
-
-    public bool TrySpendMoney(int amount)
-    {
-        if (HasEnoughMoney(amount)) {
-
-            SpendMoney(amount);
-            return true;
-        }
-
-        return false;
-        
-    }
-
-    public void SpendMoney(int amount)
-    {
-        playerMoney -= amount;
-        OnMoneyChange?.Invoke(this, playerMoney);
     }
 }

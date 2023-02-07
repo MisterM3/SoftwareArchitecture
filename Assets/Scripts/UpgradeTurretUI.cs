@@ -15,12 +15,12 @@ public class UpgradeTurretUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameStateManager.Instance.OnMoneyChange += GameStateManager_OnMoneyChange;
+        MoneyManager.Instance.OnMoneyChange += MoneyManager_OnMoneyChange;
         _paths = GetComponent<UpgradePaths>();
-        CheckTurretUpgradable(GameStateManager.Instance.GetMoney());
+        CheckTurretUpgradable(MoneyManager.Instance.GetMoney());
     }
 
-    private void GameStateManager_OnMoneyChange(object sender, int money)
+    private void MoneyManager_OnMoneyChange(object sender, int money)
     {
         CheckTurretUpgradable(money);
     }
@@ -40,7 +40,7 @@ public class UpgradeTurretUI : MonoBehaviour
     //DO THIS WITH EVERY EVENTS
     void OnDestroy()
     {
-        GameStateManager.Instance.OnMoneyChange -= GameStateManager_OnMoneyChange;
+        MoneyManager.Instance.OnMoneyChange -= MoneyManager_OnMoneyChange;
     }
 
 

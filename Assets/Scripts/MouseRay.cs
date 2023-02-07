@@ -3,97 +3,29 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 
+
+//Done?
 public class MouseRay : MonoBehaviour
 {
-    //Camera MainCamera = Camera.main;
+    public static MouseRay Instance;
 
     [SerializeField] LayerMask groundLayer;
-    [SerializeField] GridSystem system;
-    [SerializeField] GameObject gridGameObject;
-
-    [SerializeField] GameObject UpgradeUI;
-    IGridObject gridObject;
-
-    public int costTower = 0;
+ 
 
 
-
-    public void Start()
+    public void Awake()
     {
-        gridObject = gridGameObject.GetComponent<IGridObject>();
+        Instance = this;
     }
 
-    public void NewGridObject(IGridObject grid)
-    {
-        gridObject = grid;
-    }
 
-    public void Update()
+
+    public Vector3 GetMousePosition()
     {
-        //Debug.Log(Camera.main.ScreenPointToRay(Input.mousePosition));
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        
-
-
         Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, groundLayer);
-       // Debug.Log(system.WorldToGridPosition(hit.point));
-        Debug.DrawRay(ray.origin, ray.direction);
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            GridPosition position = system.WorldToGridPosition(hit.point);
-
-            //A tower has been pressed so a tower will be build
-            if (gridObject != null)
-            {
-                BuildBuilding(position);
-                system.DisableAllGridVisuals();
-                gridObject = null;
-            }
-
-            //Check if there is a tower on the grid, if there is open the upgrade menu
-            else UpgradeMenu(position);
-        }
+        return hit.point;
     }
 
-
-    void BuildBuilding(GridPosition position) 
-    {
-        if (!GameStateManager.Instance.HasEnoughMoney(costTower))
-        {
-            Debug.LogWarning("Not Enough Money to buy tower");
-            return;
-        }
-       
-        if (!system.TryAddObjectAtGridPosition(gridObject, position))
-        {
-
-            return;
-        }
-
-        GameStateManager.Instance.SpendMoney(costTower);
-
-    }
-
-
-    void UpgradeMenu(GridPosition position)
-    {
-        IGridObject building = system.GetBuildingAtGridPosition(position);
-
-        if (building == null)
-        {
-            UpgradeUI.SetActive(false);
-            return;
-        }
-
-
-        if (!(building is Turret)) return;
-
-        UpgradeUI.SetActive(true);
-        UpgradeButton button = UpgradeUI.GetComponent<UpgradeButton>();
-        //Change so certain can be upgraded
-        button.ResetButtons((Turret)building);
-
-    }
 }

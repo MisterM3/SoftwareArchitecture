@@ -7,7 +7,6 @@ using System;
 public class EnemyUnit : MonoBehaviour
 {
     [SerializeField] int health = 100;
-   // [SerializeField] float speed = 1.0f;
     [SerializeField] int money = 10;
 
     public event EventHandler OnHealthChanged;
@@ -15,9 +14,6 @@ public class EnemyUnit : MonoBehaviour
     public static event EventHandler OnAnyEnemyReachEnd;
 
     public static event EventHandler<int> OnAnyEnemyKilled;
-
-    //Distance to end based on amount of nodes need to walk
-    private float distanceToEnd;
 
     private IEnemyMovement _movement;
 
@@ -40,8 +36,6 @@ public class EnemyUnit : MonoBehaviour
         {
             OnAnyEnemyKilled?.Invoke(this, money);
             Destroy(this.gameObject);
-
-            
         }
     }
 

@@ -7,7 +7,6 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
 {
 
     [SerializeField] float speed = 1.0f;
-    //[SerializeField] EnemyWalkingStragetySO walkingStragety;
 
     [SerializeField] EnemyWalkingStragetySO walkingStragety; 
 
@@ -23,13 +22,12 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
     public void Awake()
     {
         Debug.Log("Stop");
-        system = GameObject.FindObjectOfType<GridSystem>();
+        system = GridSystem.Instance;
         enemyPath = new Queue<GridPosition>(EnemyPathManager.Instance.GetEnemyPath());
         NextPathPoint();
     }
 
 
-    //Rewrite for generic type <T>
     public void SetPath(Queue<GridPosition> pEnemyPath)
     {
         enemyPath = pEnemyPath;
@@ -39,7 +37,8 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
     {
         //EndPoint 
         if (walkToPoint == null) return;
-        // Debug.Log(Vector3.Distance(walkToPoint, transform.position));
+
+
         if (Vector3.Distance(walkToPoint, transform.position) < 0.01f)
         {
             NextPathPoint();
@@ -51,7 +50,6 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
             distanceToEnd = (enemyPath.Count - 1) + Vector3.Distance(walkToPoint, transform.position);
 
             Vector3 between = (walkToPoint - transform.position).normalized;
-            // Debug.Log(between);
             transform.position += between * (speed * walkingStragety.walkMultiplier) * Time.deltaTime;
         }
     }

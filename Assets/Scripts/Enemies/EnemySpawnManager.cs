@@ -12,11 +12,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     [SerializeField] Spawner spawnPoint;
 
-    Queue<GameObject> spawnQueue;
-
     [SerializeField] List<EnemyWave> wavesList;
-
-    private EnemyWave thisWave;
 
 
     //Change to get waveIndex from other manager;
@@ -67,32 +63,34 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void EnemyUnit_OnAnyEnemyReachEnd(object sender, EventArgs e)
     {
+        DestroyedEnemy(sender);
+    }
+
+    private void EnemyUnit_OnAnyEnemyKilled(object sender, int money)
+    {
+        DestroyedEnemy(sender);
+    }
+
+    private void DestroyedEnemy(object sender)
+    {
+        //Check if the enemy was already killed by a tower this frame
         if (killedEnemies.Contains((EnemyUnit)sender)) return;
 
         CheckIfAllEnemiesDead();
+
+        //Add it so no enemy gets killed twice
         killedEnemies.Add((EnemyUnit)sender);
     }
 
-    private void EnemyUnit_OnAnyEnemyKilled(object sender, int e)
+    private void Instance_OnDuringWaveStart(object sender, int waveIndex)
     {
-
-        if (killedEnemies.Contains((EnemyUnit)sender)) return;
-
-        CheckIfAllEnemiesDead();
-        killedEnemies.Add((EnemyUnit)sender);
-    }
-
-    private void Instance_OnDuringWaveStart(object sender, int e)
-    {
-        NextWave(e);
-        Debug.LogWarning("receiveEvent");
+        NextWave(waveIndex);
     }
 
     void StartWave()
     {
         coroutine = WaitAndSpawn(wavesList[waveIndex].timeBetweenUnits);
         StartCoroutine(coroutine);
-        Debug.LogWarning("StartCoroutine");
     }
 
 
@@ -100,14 +98,12 @@ public class EnemySpawnManager : MonoBehaviour
     {
         waveIndex = waveNumber;
         StartWave();
-        Debug.LogWarning("StartWave");
     }
 
-    // every 2 seconds perform the print()
+    // spawns every enemy of the wave, waiting a certain amount between spawning enemies
     private IEnumerator WaitAndSpawn(float waitTime)
     {
         waveSpawnDone = false;
-        Debug.LogWarning("start new wave");
         int i = 0;
         while (wavesList[waveIndex].waveUnits.Count > i)
         {
@@ -125,11 +121,9 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void CheckIfAllEnemiesDead()
     {
-
-      
-
         numberOfEnemiesAlive--;
 
+        //If the wave has not finished spawning enemies don't end the wave
         if (!waveSpawnDone) return;
 
         if (numberOfEnemiesAlive < 0)
@@ -142,10 +136,6 @@ public class EnemySpawnManager : MonoBehaviour
             OnWaveCompleted?.Invoke(this, EventArgs.Empty);
         }
     }
-
-
-
-
 
 
 }

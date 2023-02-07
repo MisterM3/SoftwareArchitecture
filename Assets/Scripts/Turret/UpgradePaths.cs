@@ -10,20 +10,15 @@ public class UpgradePaths : MonoBehaviour
     [SerializeField] List<UpgradeStrategySO> FirstUpgradeStrategy;
 
 
-
-
-
     [SerializeField] int upgradeIndexSecond = 0;
     [SerializeField] List<UpgradeStrategySO> SecondUpgradeStrategy;
 
-    private Turret turret;
     private IUpgradable[] upgradables;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        turret = gameObject.GetComponent<Turret>();
         upgradables = gameObject.GetComponents<IUpgradable>();
     }
 
@@ -32,7 +27,7 @@ public class UpgradePaths : MonoBehaviour
     {
         if (upgradeIndexFirst >= FirstUpgradeStrategy.Count) return;
         
-        if (!GameStateManager.Instance.TrySpendMoney(FirstUpgradeStrategy[upgradeIndexFirst + 1].costUpgrade)) return;
+        if (!MoneyManager.Instance.TrySpendMoney(FirstUpgradeStrategy[upgradeIndexFirst + 1].costUpgrade)) return;
 
         upgradeIndexFirst++;
         UpgradeComponenent(FirstUpgradeStrategy[upgradeIndexFirst]);
@@ -43,7 +38,7 @@ public class UpgradePaths : MonoBehaviour
     {
         if (upgradeIndexSecond >= SecondUpgradeStrategy.Count) return;
 
-        if (!GameStateManager.Instance.TrySpendMoney(SecondUpgradeStrategy[upgradeIndexSecond + 1].costUpgrade)) return;
+        if (!MoneyManager.Instance.TrySpendMoney(SecondUpgradeStrategy[upgradeIndexSecond + 1].costUpgrade)) return;
 
         upgradeIndexSecond++;
         UpgradeComponenent(SecondUpgradeStrategy[upgradeIndexSecond]);

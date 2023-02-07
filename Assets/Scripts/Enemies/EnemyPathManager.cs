@@ -29,25 +29,26 @@ public class EnemyPathManager : MonoBehaviour
 
         queuePath = new Queue<GridPosition>(enemyPath);
 
-
         PathVisual();
     }
 
 
-    //ReWrite Path so the first element is the start and the last is the ending point
+    //Builds a path based on the put in gridpositions
     public void PathVisual()
     {
         queuePath = new Queue<GridPosition>(enemyPath);
 
-        IGridObject gridObject = pathPrefab.GetComponent<IGridObject>();
 
+        //Puts the spawner at the start of the path
         IGridObject spawnerObject = spawnerPrefab.GetComponent<IGridObject>();
 
-        system.TryAddObjectAtGridPosition(spawnerObject, enemyPath[0]);
+        system.TryAddBuildingAtGridPosition(spawnerObject, enemyPath[0]);
 
+        //The rest of the path is a path object
+        IGridObject gridObject = pathPrefab.GetComponent<IGridObject>();
         for(int i = 1; i < enemyPath.Count; i++)
         {
-            system.TryAddObjectAtGridPosition(gridObject, enemyPath[i]);
+            system.TryAddBuildingAtGridPosition(gridObject, enemyPath[i]);
         }
     }
 

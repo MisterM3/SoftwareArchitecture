@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 118825571}
   - component: {fileID: 118825570}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Destroy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1145,7 +1145,7 @@ GameObject:
   - component: {fileID: 521126143}
   - component: {fileID: 521126147}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: BuyAOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2249,7 +2249,7 @@ GameObject:
   - component: {fileID: 957985466}
   - component: {fileID: 957985470}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BuySingleShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2425,7 +2425,7 @@ GameObject:
   - component: {fileID: 1020970091}
   - component: {fileID: 1020970090}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Upgrade1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2632,7 +2632,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealh: 10
-  playerMoney: 1000
   waveIndex: -1
   maxWaveIndex: 4
   currentstate: 0
@@ -2983,6 +2982,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1432547746}
   - component: {fileID: 1432547745}
+  - component: {fileID: 1432547747}
   m_Layer: 0
   m_Name: MouseRay
   m_TagString: Untagged
@@ -3005,10 +3005,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 16
-  system: {fileID: 1842924198}
-  gridGameObject: {fileID: 0}
-  UpgradeUI: {fileID: 1888853418}
-  costTower: 0
 --- !u!4 &1432547746
 Transform:
   m_ObjectHideFlags: 0
@@ -3024,6 +3020,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1432547747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432547744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878b4bb17e5d24e42b72102327d7e916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpgradeUI: {fileID: 1888853418}
 --- !u!1 &1444769048
 GameObject:
   m_ObjectHideFlags: 0
@@ -3712,61 +3721,61 @@ MonoBehaviour:
   system: {fileID: 1842924198}
   enemyPath:
   - x: 5
-    y: 0
+    z: 0
   - x: 6
-    y: 0
+    z: 0
   - x: 6
-    y: 1
+    z: 1
   - x: 5
-    y: 1
+    z: 1
   - x: 5
-    y: 2
+    z: 2
   - x: 5
-    y: 3
+    z: 3
   - x: 5
-    y: 4
+    z: 4
   - x: 6
-    y: 4
+    z: 4
   - x: 6
-    y: 5
+    z: 5
   - x: 6
-    y: 6
+    z: 6
   - x: 7
-    y: 6
+    z: 6
   - x: 8
-    y: 6
+    z: 6
   - x: 9
-    y: 6
+    z: 6
   - x: 9
-    y: 7
+    z: 7
   - x: 9
-    y: 8
+    z: 8
   - x: 8
-    y: 8
+    z: 8
   - x: 7
-    y: 8
+    z: 8
   - x: 6
-    y: 8
+    z: 8
   - x: 5
-    y: 8
+    z: 8
   - x: 4
-    y: 8
+    z: 8
   - x: 3
-    y: 8
+    z: 8
   - x: 3
-    y: 7
+    z: 7
   - x: 3
-    y: 6
+    z: 6
   - x: 3
-    y: 5
+    z: 5
   - x: 2
-    y: 5
+    z: 5
   - x: 2
-    y: 4
+    z: 4
   - x: 1
-    y: 4
+    z: 4
   - x: 0
-    y: 4
+    z: 4
 --- !u!4 &1647586643
 Transform:
   m_ObjectHideFlags: 0
@@ -3971,6 +3980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1842924199}
   - component: {fileID: 1842924198}
+  - component: {fileID: 1842924200}
   m_Layer: 0
   m_Name: GridSystem
   m_TagString: Untagged
@@ -3990,8 +4000,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e75ca2d95bdc1c46a2feabd1f912382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabGridObject: {fileID: 5391941342999614354, guid: e2fcd96718f8e904db155e8957c1a8ad,
-    type: 3}
   width: 10
   height: 10
   gridSize: 1
@@ -4010,6 +4018,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1842924200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842924197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f55dfb6787f7c43bf868172e9cb6ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridVisualPrefab: {fileID: 5391941342999614354, guid: e2fcd96718f8e904db155e8957c1a8ad,
+    type: 3}
+  system: {fileID: 0}
 --- !u!1 &1888853418
 GameObject:
   m_ObjectHideFlags: 0
@@ -4250,7 +4273,7 @@ GameObject:
   - component: {fileID: 1956244090}
   - component: {fileID: 1956244089}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Upgrade2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4359,6 +4382,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956244086}
   m_CullTransparentMesh: 1
+--- !u!1 &2000769124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2000769126}
+  - component: {fileID: 2000769125}
+  m_Layer: 0
+  m_Name: MoneyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2000769125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000769124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f76dbc8362b7d14fa92304121672a8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMoney: 1000
+--- !u!4 &2000769126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000769124}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 1005, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2028776266
 GameObject:
   m_ObjectHideFlags: 0
@@ -4646,7 +4714,7 @@ GameObject:
   - component: {fileID: 2080527206}
   - component: {fileID: 2080527205}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: BuySlowing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

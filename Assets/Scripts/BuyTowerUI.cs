@@ -20,7 +20,7 @@ public class BuyTowerUI : MonoBehaviour
     void Start()
     {
 
-        GameStateManager.Instance.OnMoneyChange += Instance_OnMoneyChange;
+        MoneyManager.Instance.OnMoneyChange += Instance_OnMoneyChange;
 
         cost = GetComponent<BuyTower>().getCost();
 

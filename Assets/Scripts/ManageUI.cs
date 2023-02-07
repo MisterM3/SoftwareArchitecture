@@ -18,7 +18,7 @@ public class ManageUI : MonoBehaviour
     void Start()
     {
         GameStateManager.Instance.OnHealthChange += GameStateManager_OnHealthChange;
-        GameStateManager.Instance.OnMoneyChange += GameStateManager_OnMoneyChange;
+        MoneyManager.Instance.OnMoneyChange += GameStateManager_OnMoneyChange;
 
         GameStateManager.Instance.OnDuringWaveStart += Instance_OnDuringWaveStart;
 

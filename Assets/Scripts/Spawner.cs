@@ -7,12 +7,7 @@ public class Spawner : MonoBehaviour, IGridObject
 {
 
     [SerializeField] GameObject enemy;
-
-    public GridObjectVisual gridObjectVisual { get; set; }
-
     public GridPosition gridPosition { get; set; }
-
-    
 
     public GameObject GetGameObject()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SlowingEffect : MonoBehaviour, ITurretAction, IUpgradable
 {
-    public EnemyWalkingStragetySO normalWalkingSpeed;
+    [SerializeField] EnemyWalkingStragetySO normalWalkingSpeed;
     [SerializeField] EnemyWalkingStragetySO slowingSpeed;
 
 
