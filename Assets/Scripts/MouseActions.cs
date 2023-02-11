@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//1st Pass, Maybe change it so building and upgrade are mouseActions added to a list
+
 public class MouseActions : MonoBehaviour
 {
 
@@ -75,7 +75,7 @@ public class MouseActions : MonoBehaviour
         if (!(building is Turret)) return;
 
         UpgradeUI.SetActive(true);
-        UpgradeButton button = UpgradeUI.GetComponent<UpgradeButton>();
+        UpgradeButtons button = UpgradeUI.GetComponent<UpgradeButtons>();
         //Change so certain can be upgraded
         button.ResetButtons((Turret)building);
 

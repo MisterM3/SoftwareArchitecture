@@ -7,7 +7,7 @@ public class GridObjectVisual : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI gridPositionText;
 
-    public GridPosition GridPosition;
+    //public GridPosition GridPosition;
 
     public void SetText(string text)
     {

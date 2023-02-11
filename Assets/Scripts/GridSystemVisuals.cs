@@ -39,7 +39,7 @@ public class GridSystemVisuals : MonoBehaviour
 
                 GameObject gride = Instantiate(gridVisualPrefab, position, Quaternion.identity);
                 gride.GetComponent<GridObjectVisual>().SetText(gridPosition.ToString());
-                gride.GetComponent<GridObjectVisual>().GridPosition = gridPosition;
+               // gride.GetComponent<GridObjectVisual>().GridPosition = gridPosition;
                 gridVisualsObjectsList[x, z] = gride.GetComponent<GridObjectVisual>();
             }
         }

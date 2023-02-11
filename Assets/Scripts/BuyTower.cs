@@ -9,8 +9,8 @@ public class BuyTower : MonoBehaviour
 
 
     [SerializeField] int cost;
-    [SerializeField] GameObject GridGameObject;
-    IGridObject GridObject;
+    [SerializeField] GameObject gridGameObject;
+    IGridObject gridObject;
 
 
     MouseActions mouse;
@@ -18,16 +18,16 @@ public class BuyTower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GridObject = GridGameObject.GetComponent<IGridObject>();
+        gridObject = gridGameObject.GetComponent<IGridObject>();
        mouse = GameObject.FindObjectOfType<MouseActions>();
     }
 
     public void BuyTowers()
     {
-        mouse.NewBuilding(GridObject, cost);
+        mouse.NewBuilding(gridObject, cost);
     }
 
-    public int getCost()
+    public int GetCost()
     {
         return cost;
     }

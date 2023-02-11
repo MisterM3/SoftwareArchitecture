@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradeButton : MonoBehaviour
+public class UpgradeButtons : MonoBehaviour
 {
 
     [SerializeField] Turret turret;
@@ -50,7 +50,7 @@ public class UpgradeButton : MonoBehaviour
     }
 
 
-    void ResetFirstUpgradeButton(UpgradePaths turretUpgrade)
+    private void ResetFirstUpgradeButton(UpgradePaths turretUpgrade)
     {
         buttonFirstUpgrade.onClick.RemoveAllListeners();
         buttonFirstUpgrade.onClick.AddListener(turretUpgrade.UpgradeFirst);
@@ -60,7 +60,7 @@ public class UpgradeButton : MonoBehaviour
         textButtonOne.text = turretUpgrade.GetFirstUpgradeNameAndCost();
     }
 
-    void ResetSecondUpgradeButton(UpgradePaths turretUpgrade)
+    private void ResetSecondUpgradeButton(UpgradePaths turretUpgrade)
     {
         buttonSecondUpgrade.onClick.RemoveAllListeners();
         buttonSecondUpgrade.onClick.AddListener(turretUpgrade.UpgradeSecond);
@@ -70,14 +70,14 @@ public class UpgradeButton : MonoBehaviour
         textButtonTwo.text = turretUpgrade.GetSecondUpgradeNameAndCost();
     }
 
-    void ResetDestroyButton(Turret turret)
+    private void ResetDestroyButton(Turret turret)
     {
         destroyButton.onClick.RemoveAllListeners();
         destroyButton.onClick.AddListener(turret.DestroyTurret);
         destroyButton.onClick.AddListener(DestroyButton);
     }
 
-    void CheckMoneyUpgrades(int money)
+    private void CheckMoneyUpgrades(int money)
     {
         if (turret == null) return;
 
@@ -92,7 +92,7 @@ public class UpgradeButton : MonoBehaviour
     }
 
 
-    void ClickedButton()
+    private void ClickedButton()
     {
         if (turret == null)
         {
@@ -103,7 +103,7 @@ public class UpgradeButton : MonoBehaviour
         
     }
 
-    void DestroyButton()
+    private void DestroyButton()
     {
         turret = null;
         gameObject.SetActive(false);

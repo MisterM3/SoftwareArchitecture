@@ -22,7 +22,7 @@ public class BuyTowerUI : MonoBehaviour
 
         MoneyManager.Instance.OnMoneyChange += Instance_OnMoneyChange;
 
-        cost = GetComponent<BuyTower>().getCost();
+        cost = GetComponent<BuyTower>().GetCost();
 
         towerText.text = nameTurret + " \n (" + cost.ToString() + ")";
     }

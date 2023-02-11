@@ -4,7 +4,7 @@ using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 
-//Done?
+
 public class MouseRay : MonoBehaviour
 {
     public static MouseRay Instance;
