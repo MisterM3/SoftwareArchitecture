@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IEnemyMovement
 {
-    void ChangeStragety(EnemyWalkingStragetySO stragety);
+    void ChangeWalkingStragety(EnemyWalkingStragetySO stragety);
 
     void UpdateMovement();
 

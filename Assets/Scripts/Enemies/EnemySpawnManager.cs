@@ -51,7 +51,7 @@ public class EnemySpawnManager : MonoBehaviour
 
         killedEnemies = new List<EnemyUnit>();
 
-        GameStateManager.Instance.OnDuringWaveStart += Instance_OnDuringWaveStart;
+        GameStateManager.Instance.OnDuringWaveStart += GameStateManager_OnDuringWaveStart;
 
         EnemyUnit.OnAnyEnemyKilled += EnemyUnit_OnAnyEnemyKilled;
         EnemyUnit.OnAnyEnemyReachEnd += EnemyUnit_OnAnyEnemyReachEnd;
@@ -82,7 +82,7 @@ public class EnemySpawnManager : MonoBehaviour
         killedEnemies.Add((EnemyUnit)sender);
     }
 
-    private void Instance_OnDuringWaveStart(object sender, int waveIndex)
+    private void GameStateManager_OnDuringWaveStart(object sender, int waveIndex)
     {
         NextWave(waveIndex);
     }
@@ -135,6 +135,15 @@ public class EnemySpawnManager : MonoBehaviour
         {
             OnWaveCompleted?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+
+    private void OnDestroy()
+    {
+        GameStateManager.Instance.OnDuringWaveStart -= GameStateManager_OnDuringWaveStart;
+
+        EnemyUnit.OnAnyEnemyKilled -= EnemyUnit_OnAnyEnemyKilled;
+        EnemyUnit.OnAnyEnemyReachEnd -= EnemyUnit_OnAnyEnemyReachEnd;
     }
 
 

@@ -51,7 +51,7 @@ public class EnemyUnit : MonoBehaviour
     }
 
 
-    public float GetHealth()
+    public int GetHealth()
     {
         return health;
     }    

@@ -144,6 +144,11 @@ public class GameStateManager : MonoBehaviour
 
     }
 
+    public int GetHealth()
+    {
+        return playerHealth;
+    }
+
     public void OnDestroy()
     {
         EnemyUnit.OnAnyEnemyReachEnd -= EnemyUnit_OnAnyEnemyReachEnd;

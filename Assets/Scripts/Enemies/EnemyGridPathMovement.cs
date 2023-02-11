@@ -27,7 +27,7 @@ public class EnemyGridPathMovement : MonoBehaviour, IEnemyMovement
 
     public void SetPath(Queue<GridPosition> pEnemyPath)
     {
-        enemyPath = pEnemyPath;
+        enemyPath = new Queue<GridPosition>(pEnemyPath);
     }
 
     public void UpdateMovement()

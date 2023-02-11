@@ -24,6 +24,9 @@ public class ManageInformationUI : MonoBehaviour
         GameStateManager.Instance.OnGameOverStart += GameStateManager_OnGameOverStart;
 
         GameStateManager.Instance.OnWonStart += GameStateManager_OnWonStart;
+
+        ChangeMoneyText(MoneyManager.Instance.GetMoney());
+        ChangeHealthText(GameStateManager.Instance.GetHealth());
     }
 
     private void GameStateManager_OnDuringWaveStart(object sender, int e)
@@ -44,12 +47,21 @@ public class ManageInformationUI : MonoBehaviour
 
     private void MoneyManager_OnMoneyChange(object sender, int e)
     {
-        moneyText.text = "Money: " + e.ToString();
+        ChangeMoneyText(e);
     }
 
     private void GameStateManager_OnHealthChange(object sender, int e)
     {
-        healthText.text = "Health: " + e.ToString();
+        ChangeHealthText(e);
+    }
+
+    private void ChangeMoneyText(int money)
+    {
+        moneyText.text = "Money: " + money.ToString();
+    }
+    private void ChangeHealthText(int health)
+    {
+        healthText.text = "Health: " + health.ToString();
     }
 
 }

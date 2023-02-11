@@ -1185,7 +1185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 200
-  GridGameObject: {fileID: 4987584791670172716, guid: b04dd80a6dacccd4cac7047675657aed,
+  gridGameObject: {fileID: 4987584791670172716, guid: b04dd80a6dacccd4cac7047675657aed,
     type: 3}
 --- !u!114 &521126144
 MonoBehaviour:
@@ -2289,7 +2289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 100
-  GridGameObject: {fileID: 4987584791670172716, guid: 4693c5878b8e3cb439e7c73c2e952af8,
+  gridGameObject: {fileID: 4987584791670172716, guid: 4693c5878b8e3cb439e7c73c2e952af8,
     type: 3}
 --- !u!114 &957985467
 MonoBehaviour:
@@ -2631,7 +2631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd51bdfa7ab8d244bda69baa5ab8442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealh: 10
+  playerHealth: 100
   waveIndex: -1
   maxWaveIndex: 4
   currentstate: 0
@@ -4824,7 +4824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 150
-  GridGameObject: {fileID: 4987584791670172716, guid: 0cfcb21aeb87b76419350cf44bcddba5,
+  gridGameObject: {fileID: 4987584791670172716, guid: 0cfcb21aeb87b76419350cf44bcddba5,
     type: 3}
 --- !u!114 &2080527207
 MonoBehaviour:
