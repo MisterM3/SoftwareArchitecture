@@ -67,7 +67,7 @@ public class Turret : MonoBehaviour, IGridObject, IUpgradable
     }
 
 
-    public void ChangeStrategy(UpgradeStrategySO upgrade)
+    public void Upgrade(UpgradeStrategySO upgrade)
     {
         if (upgrade is TurretShootSpeedStrategySO)
         {

@@ -29,14 +29,13 @@ public class EnemyPathManager : MonoBehaviour
 
         queuePath = new Queue<GridPosition>(enemyPath);
 
-        PathVisual();
+        SpawnPathOnGrid();
     }
 
 
     //Builds a path based on the put in gridpositions
-    public void PathVisual()
+    private void SpawnPathOnGrid()
     {
-        queuePath = new Queue<GridPosition>(enemyPath);
 
 
         //Puts the spawner at the start of the path

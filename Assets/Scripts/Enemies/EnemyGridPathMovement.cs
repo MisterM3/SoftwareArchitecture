@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyUnit))]
-public class EnemyMovement : MonoBehaviour, IEnemyMovement
+public class EnemyGridPathMovement : MonoBehaviour, IEnemyMovement
 {
 
-    [SerializeField] float speed = 1.0f;
+    [SerializeField] private float speed = 1.0f;
 
-    [SerializeField] EnemyWalkingStragetySO walkingStragety; 
+    [SerializeField] private EnemyWalkingStragetySO walkingStragety;
 
-    GridSystem system;
-
-    Queue<GridPosition> enemyPath;
+    private Queue<GridPosition> enemyPath;
 
     private Vector3 walkToPoint;
 
@@ -21,9 +19,8 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
 
     public void Awake()
     {
-        Debug.Log("Stop");
-        system = GridSystem.Instance;
-        enemyPath = new Queue<GridPosition>(EnemyPathManager.Instance.GetEnemyPath());
+
+        SetPath(EnemyPathManager.Instance.GetEnemyPath());
         NextPathPoint();
     }
 
@@ -58,7 +55,7 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
     {
         if (enemyPath.TryDequeue(out GridPosition gridPointNextPoint))
         {
-            walkToPoint = system.GridToWorldPosition(gridPointNextPoint) + new Vector3(0.5f, 0, 0.5f);
+            walkToPoint = GridSystem.Instance.GridToWorldPosition(gridPointNextPoint) + new Vector3(0.5f, 0, 0.5f);
         }
         else
         {
@@ -70,7 +67,7 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
         }
     }
 
-    public void ChangeStragety(EnemyWalkingStragetySO stragety)
+    public void ChangeWalkingStragety(EnemyWalkingStragetySO stragety)
     {
         walkingStragety = stragety;
     }

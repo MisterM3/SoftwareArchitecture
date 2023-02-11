@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class StandardBullet : MonoBehaviour, IBullet
+public abstract class StandardBullet : MonoBehaviour
 {
     public float speed = 1f;
 
@@ -28,7 +28,6 @@ public abstract class StandardBullet : MonoBehaviour, IBullet
     }
 
 
-    //Rewrite
     void OnTriggerEnter(Collider col)
     {
         if (alreadyHitAnything) return;

@@ -10,6 +10,7 @@ public class GridSystemVisuals : MonoBehaviour
 
     GridObjectVisual[,] gridVisualsObjectsList;
 
+
     [SerializeField] GridSystem system;
 
     private int width;
@@ -19,11 +20,14 @@ public class GridSystemVisuals : MonoBehaviour
     public void Start()
     {
 
+
+
         system = GridSystem.Instance;
 
         width = system.GetWidth();
         height = system.GetHeight();
         gridSize = system.GetGridSize();
+
 
         gridVisualsObjectsList = new GridObjectVisual[width, height];
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,13 @@ public class Spawner : MonoBehaviour, IGridObject
     public void SpawnEnemy(GameObject enemy)
     {
 
+        if (!enemy.TryGetComponent<EnemyUnit>(out EnemyUnit unit))
+        {
+            Debug.LogError("TRIED TO SPAWN A NON ENEMY UNIT");
+            return;
+        }
+        
         GameObject enemys = Instantiate(enemy, GridSystem.Instance.MiddleGridToWorldPosition(gridPosition), Quaternion.identity);
-
 
     }
 }

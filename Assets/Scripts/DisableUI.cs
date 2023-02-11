@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class DisableUI : MonoBehaviour
@@ -8,16 +7,21 @@ public class DisableUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameStateManager.Instance.OnGameOverStart += Instance_OnGameOverStart;
-        GameStateManager.Instance.OnWonStart += Instance_OnWonStart;
+        GameStateManager.Instance.OnGameOverStart += GameStateManager_OnGameOverStart;
+        GameStateManager.Instance.OnWonStart += GameStateManager_OnWonStart;
     }
 
-    private void Instance_OnWonStart(object sender, System.EventArgs e)
+    private void GameStateManager_OnWonStart(object sender, EventArgs e)
     {
-        this.gameObject.SetActive(false);
+        DisableButtonUI();
     }
 
-    private void Instance_OnGameOverStart(object sender, System.EventArgs e)
+    private void GameStateManager_OnGameOverStart(object sender, EventArgs e)
+    {
+        DisableButtonUI();
+    }
+
+    private void DisableButtonUI()
     {
         this.gameObject.SetActive(false);
     }

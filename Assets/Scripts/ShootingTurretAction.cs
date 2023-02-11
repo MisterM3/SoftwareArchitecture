@@ -62,14 +62,14 @@ public class ShootingTurretAction : MonoBehaviour, ITurretAction, IUpgradable
         Vector3 spawnPosition = GridSystem.Instance.MiddleGridToWorldPosition(mainComponent.gridPosition);
         spawnPosition += new Vector3(0, 0.5f, 0);
         GameObject bulletObject = Instantiate(bullet, spawnPosition, Quaternion.identity);
-        IBullet bul = bulletObject.GetComponent<IBullet>();
+        StandardBullet bul = bulletObject.GetComponent<StandardBullet>();
         bul.direction = direction;
         bul.damage = damageStrategy.damageAmount;
 
 
     }
 
-    public void ChangeStrategy(UpgradeStrategySO upgrade)
+    public void Upgrade(UpgradeStrategySO upgrade)
     {
         if (upgrade is DamageAmountStrategySO)
         {

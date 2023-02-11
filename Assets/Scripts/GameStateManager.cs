@@ -7,19 +7,17 @@ public class GameStateManager : MonoBehaviour
 {
 
     public static GameStateManager Instance { get; private set; }
-    [SerializeField] int playerHealh = 100;
+    [SerializeField] int playerHealth = 100;
 
     [SerializeField] int waveIndex = -1;
 
     [SerializeField] int maxWaveIndex = 4;
 
 
-    //Maybe change
     public event EventHandler<int> OnHealthChange;
 
 
 
-    //Rechange into eventhandler with info maybe?
     public event EventHandler OnBeforeWaveStart;
     public event EventHandler<int> OnDuringWaveStart;
     public event EventHandler OnAfterWaveStart;
@@ -47,8 +45,8 @@ public class GameStateManager : MonoBehaviour
 
         EnemyUnit.OnAnyEnemyReachEnd += EnemyUnit_OnAnyEnemyReachEnd;
 
-        EnemySpawnManager.Instance.OnWaveCompleted += Instance_OnWaveCompleted;
-        ManageTimer.Instance.OnTimerComplete += ManageTimer_OnTimerComplete;
+        EnemySpawnManager.Instance.OnWaveCompleted += EnemySpawnManager_OnWaveCompleted;
+        ManageRoundTimer.Instance.OnTimerComplete += ManageTimer_OnTimerComplete;
 
 
         StartGame();
@@ -60,7 +58,7 @@ public class GameStateManager : MonoBehaviour
         StartWave();
     }
 
-    private void Instance_OnWaveCompleted(object sender, EventArgs e)
+    private void EnemySpawnManager_OnWaveCompleted(object sender, EventArgs e)
     {
         if (currentstate != GameState.GameOver)
             EndWave();
@@ -69,39 +67,44 @@ public class GameStateManager : MonoBehaviour
     public void StartGame() {
 
         currentstate = GameState.BeforeWave;
-        SendEvents();
+        SendCurrentStateEvents();
+    }
+
+    public void StartWave() {
+        waveIndex++;
+        currentstate = GameState.DuringWave;
+        SendCurrentStateEvents();
     }
 
     public void EndWave() {
 
         if (waveIndex >= maxWaveIndex)
         {
-            currentstate = GameState.Won;
-            SendEvents();
+            GameWon();
             return;
         }
 
 
         currentstate = GameState.BeforeWave;
-        SendEvents();
-    }
-
-    public void StartWave() {
-        waveIndex++;
-        currentstate = GameState.DuringWave;
-        SendEvents();
+        SendCurrentStateEvents();
     }
 
     public void WaveSpawnOver() {
         currentstate = GameState.AfterWaveSpawn;
-        SendEvents();
+        SendCurrentStateEvents();
     }
     public void GameOver() {
         currentstate = GameState.GameOver;
-        SendEvents();
+        SendCurrentStateEvents();
     }
 
-    private void SendEvents() { 
+    public void GameWon()
+    {
+        currentstate = GameState.Won;
+        SendCurrentStateEvents();
+    }
+
+    private void SendCurrentStateEvents() { 
     
         switch (currentstate) {
             case GameState.BeforeWave:
@@ -123,21 +126,29 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    private void EnemyUnit_OnAnyEnemyReachEnd(object sender, System.EventArgs e)
+    private void EnemyUnit_OnAnyEnemyReachEnd(object sender, EventArgs e)
     {
         PlaterHealthDown();
     }
 
     private void PlaterHealthDown()
     {
-        playerHealh -= 1;
-        if (playerHealh <= 0)
+        playerHealth -= 1;
+        if (playerHealth <= 0)
         {
             GameOver();
-            playerHealh = 0;
+            playerHealth = 0;
         }
 
-        OnHealthChange?.Invoke(this, playerHealh);
+        OnHealthChange?.Invoke(this, playerHealth);
 
+    }
+
+    public void OnDestroy()
+    {
+        EnemyUnit.OnAnyEnemyReachEnd -= EnemyUnit_OnAnyEnemyReachEnd;
+
+        EnemySpawnManager.Instance.OnWaveCompleted -= EnemySpawnManager_OnWaveCompleted;
+        ManageRoundTimer.Instance.OnTimerComplete -= ManageTimer_OnTimerComplete;
     }
 }

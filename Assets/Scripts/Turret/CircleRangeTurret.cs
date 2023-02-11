@@ -33,7 +33,7 @@ public class CircleRangeTurret : MonoBehaviour, ITurretRange, IUpgradable
         return turretRangeStragety.turretRange;
     }
 
-    public void ChangeStrategy(UpgradeStrategySO upgrade)
+    public void Upgrade(UpgradeStrategySO upgrade)
     {
         if (upgrade is TurretRangeStragetySO)
         {

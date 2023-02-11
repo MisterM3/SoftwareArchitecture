@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ManageTimer : MonoBehaviour
+public class ManageRoundTimer : MonoBehaviour
 {
 
-    public static ManageTimer Instance { get; private set; }
+    public static ManageRoundTimer Instance { get; private set; }
 
     [SerializeField] int timeBetweenWaves;
     [SerializeField] TextMeshProUGUI timerText;
@@ -38,22 +38,15 @@ public class ManageTimer : MonoBehaviour
 
     private void GameStateManager_OnBeforeWaveStart(object sender, EventArgs e)
     {
-        Debug.LogWarning("tes");
         StartTimer();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
 
-    void StartTimer()
+    private void StartTimer()
     {
         coroutine = Timer();
         StartCoroutine(coroutine);
-        Debug.LogWarning("tesetata");
     }
 
 
@@ -76,6 +69,11 @@ public class ManageTimer : MonoBehaviour
         timerText.gameObject.SetActive(false);
         OnTimerComplete?.Invoke(this, EventArgs.Empty);
     
+    }
+
+    public void OnDestroy()
+    {
+        GameStateManager.Instance.OnBeforeWaveStart -= GameStateManager_OnBeforeWaveStart;
     }
 
 }

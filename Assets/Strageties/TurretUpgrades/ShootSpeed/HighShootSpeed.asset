@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameUpgrade: High shoot speed
   costUpgrade: 200
-  shootSpeed: 0.33
+  actionSpeed: 0.33

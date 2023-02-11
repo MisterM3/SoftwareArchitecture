@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4072f371b6ed6d34884228351aa37b8c, type: 3}
   m_Name: SlowShootSpeed
   m_EditorClassIdentifier: 
-  shootSpeed: 2
+  nameUpgrade: 
   costUpgrade: 0
+  actionSpeed: 1

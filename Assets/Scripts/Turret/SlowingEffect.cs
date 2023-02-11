@@ -43,7 +43,7 @@ public class SlowingEffect : MonoBehaviour, ITurretAction, IUpgradable
         {
             EnemyUnit enemy = collEnemy.GetComponentInParent<EnemyUnit>();
             IEnemyMovement enemyMovement = enemy.GetComponent<IEnemyMovement>();
-            enemyMovement.ChangeStragety(slowingSpeed);
+            enemyMovement.ChangeWalkingStragety(slowingSpeed);
         }
     }
 
@@ -66,11 +66,11 @@ public class SlowingEffect : MonoBehaviour, ITurretAction, IUpgradable
 
             //Could maybe go wrong if frame has two slow towers left one and joined other
             IEnemyMovement enemyMovement = enemy.GetComponent<IEnemyMovement>();
-            enemyMovement.ChangeStragety(normalWalkingSpeed);
+            enemyMovement.ChangeWalkingStragety(normalWalkingSpeed);
         }
     }
 
-    public void ChangeStrategy(UpgradeStrategySO upgrade)
+    public void Upgrade(UpgradeStrategySO upgrade)
     {
         if (upgrade is EnemyWalkingStragetySO)
         {

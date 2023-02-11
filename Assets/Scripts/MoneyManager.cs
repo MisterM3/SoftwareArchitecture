@@ -47,6 +47,11 @@ public class MoneyManager : MonoBehaviour
     {
         return playerMoney >= amount;
     }
+    public void SpendMoney(int amount)
+    {
+        playerMoney -= amount;
+        OnMoneyChange?.Invoke(this, playerMoney);
+    }
 
     public bool TrySpendMoney(int amount)
     {
@@ -61,11 +66,6 @@ public class MoneyManager : MonoBehaviour
 
     }
 
-    public void SpendMoney(int amount)
-    {
-        playerMoney -= amount;
-        OnMoneyChange?.Invoke(this, playerMoney);
-    }
 
     private void OnDestroy()
     {

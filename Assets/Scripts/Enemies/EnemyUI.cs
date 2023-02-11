@@ -22,11 +22,11 @@ public class EnemyUI : MonoBehaviour
 
     private void Unit_OnHealthChanged(object sender, System.EventArgs e)
     {
-        UpdateHealth();
+        UpdateHealthText();
     }
 
 
-    void UpdateHealth()
+    void UpdateHealthText()
     {
         healthText.text = unit.GetHealth().ToString();
     }

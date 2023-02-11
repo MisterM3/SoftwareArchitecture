@@ -51,7 +51,7 @@ public class UpgradePaths : MonoBehaviour
     {
         foreach(IUpgradable upgradable in upgradables)
         {
-            upgradable.ChangeStrategy(upgrade);
+            upgradable.Upgrade(upgrade);
         }
 
     }

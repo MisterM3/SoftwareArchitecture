@@ -19,7 +19,9 @@ public class GenericGrid<TGridObject>
         this.gridSize = gridSize;
 
         gridObjects = new TGridObject[this.width, this.height];
+
     }
+
 
     public Vector3 GridToWorldPosition(GridPosition gridPosition)
     {

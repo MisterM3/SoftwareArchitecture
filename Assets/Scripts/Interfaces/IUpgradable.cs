@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IUpgradable
 {
-    void ChangeStrategy(UpgradeStrategySO upgrade);
+    void Upgrade(UpgradeStrategySO upgrade);
 }
 

@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using TMPro;
 
-public class ManageUI : MonoBehaviour
+public class ManageInformationUI : MonoBehaviour
 {
 
     [SerializeField] TextMeshProUGUI healthText;
@@ -18,32 +17,32 @@ public class ManageUI : MonoBehaviour
     void Start()
     {
         GameStateManager.Instance.OnHealthChange += GameStateManager_OnHealthChange;
-        MoneyManager.Instance.OnMoneyChange += GameStateManager_OnMoneyChange;
+        MoneyManager.Instance.OnMoneyChange += MoneyManager_OnMoneyChange;
 
-        GameStateManager.Instance.OnDuringWaveStart += Instance_OnDuringWaveStart;
+        GameStateManager.Instance.OnDuringWaveStart += GameStateManager_OnDuringWaveStart;
 
-        GameStateManager.Instance.OnGameOverStart += Instance_OnGameOverStart;
+        GameStateManager.Instance.OnGameOverStart += GameStateManager_OnGameOverStart;
 
-        GameStateManager.Instance.OnWonStart += Instance_OnWonStart;
+        GameStateManager.Instance.OnWonStart += GameStateManager_OnWonStart;
     }
 
-    private void Instance_OnDuringWaveStart(object sender, int e)
+    private void GameStateManager_OnDuringWaveStart(object sender, int e)
     {
         //e++ because index starts at zero
         waveText.text = "Wave: " + (e+1).ToString();
     }
 
-    private void Instance_OnGameOverStart(object sender, System.EventArgs e)
+    private void GameStateManager_OnGameOverStart(object sender, EventArgs e)
     {
         gameOverScreen.SetActive(true);
     }
 
-    private void Instance_OnWonStart(object sender, System.EventArgs e)
+    private void GameStateManager_OnWonStart(object sender, EventArgs e)
     {
         gameWonScreen.SetActive(true);
     }
 
-    private void GameStateManager_OnMoneyChange(object sender, int e)
+    private void MoneyManager_OnMoneyChange(object sender, int e)
     {
         moneyText.text = "Money: " + e.ToString();
     }
@@ -53,9 +52,4 @@ public class ManageUI : MonoBehaviour
         healthText.text = "Health: " + e.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
